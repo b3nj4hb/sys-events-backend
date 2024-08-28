@@ -1,6 +1,7 @@
 import { BaseEntity } from 'src/config/base.entity';
 import { Profile } from '../interfaces/profile.interface';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { RoleEntity } from './role.entity';
 
 @Entity({ name: 'profile' })
 export class ProfileEntity extends BaseEntity implements Profile {
@@ -16,4 +17,7 @@ export class ProfileEntity extends BaseEntity implements Profile {
 	email: string;
 	@Column()
 	password: string;
+
+	@ManyToOne(() => RoleEntity, (role) => role.profile)
+	role: RoleEntity;
 }
