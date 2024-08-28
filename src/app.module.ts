@@ -7,9 +7,10 @@ import { ProfileModule } from './modules/profile/profile.module';
 import { StudentModule } from './modules/student/student.module';
 import { EventModule } from './modules/event/event.module';
 import { StudentEventModule } from './modules/student-event/student-event.module';
+import { CarrierModule } from './modules/carrier/carrier.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), ProfileModule, StudentModule, EventModule, StudentEventModule,],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), ProfileModule, StudentModule, EventModule, StudentEventModule, CarrierModule,],
   controllers: [AppController],
   providers: [AppService],
 })
