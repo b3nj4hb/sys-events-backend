@@ -10,7 +10,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [],
+  entities: [__dirname + '/../**/**/*.entity{.ts}'],
   synchronize: true,
   ssl: { rejectUnauthorized: true, ca: process.env.DB_CA }
 };
