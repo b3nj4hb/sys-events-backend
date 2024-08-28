@@ -1,1 +1,3 @@
-export interface Cycle {}
+export interface Cycle {
+	name: string;
+}

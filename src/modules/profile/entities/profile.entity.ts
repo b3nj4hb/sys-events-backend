@@ -1,7 +1,8 @@
 import { BaseEntity } from 'src/config/base.entity';
 import { Profile } from '../interfaces/profile.interface';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { RoleEntity } from './role.entity';
+import { StudentEntity } from 'src/modules/student/entities/student.entity';
 
 @Entity({ name: 'profile' })
 export class ProfileEntity extends BaseEntity implements Profile {
@@ -20,4 +21,6 @@ export class ProfileEntity extends BaseEntity implements Profile {
 
 	@ManyToOne(() => RoleEntity, (role) => role.profile)
 	role: RoleEntity;
+	@OneToMany(() => StudentEntity, (student) => student.profile)
+	student: StudentEntity[];
 }
