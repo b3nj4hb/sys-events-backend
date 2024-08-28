@@ -1,1 +1,3 @@
-export interface Faculty {}
+export interface Faculty {
+	name: string;
+}

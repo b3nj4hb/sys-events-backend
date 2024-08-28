@@ -1,1 +1,3 @@
-export interface Carrier {}
+export interface Carrier {
+	name: string;
+}
