@@ -9,6 +9,7 @@ import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 import { EventEntity } from 'src/modules/event/entities/event.entity';
 import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
 import { StudentEntity } from 'src/modules/student/entities/student.entity';
+import { StudentEventEntity } from 'src/modules/student-event/entities/student-event.entity';
 
 @Module({
 	imports: [
@@ -21,6 +22,7 @@ import { StudentEntity } from 'src/modules/student/entities/student.entity';
 			EventEntity,
 			ProfileEntity,
 			StudentEntity,
+			StudentEventEntity,
 		]),
 	],
 	providers: [SeedService],

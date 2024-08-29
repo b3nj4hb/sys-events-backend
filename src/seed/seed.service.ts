@@ -11,6 +11,7 @@ import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 import { EventEntity } from 'src/modules/event/entities/event.entity';
 import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
 import { StudentEntity } from 'src/modules/student/entities/student.entity';
+import { StudentEventEntity } from 'src/modules/student-event/entities/student-event.entity';
 
 dotenv.config(); // Carga las variables de entorno del archivo .env
 
@@ -33,6 +34,8 @@ export class SeedService implements OnModuleInit {
 		private readonly profileRepository: Repository<ProfileEntity>,
 		@InjectRepository(StudentEntity)
 		private readonly studentRepository: Repository<StudentEntity>,
+		@InjectRepository(StudentEventEntity)
+		private readonly studentEventRepository: Repository<StudentEventEntity>,
 		// agregar mas en caso necesitar
 	) {}
 
@@ -111,6 +114,7 @@ export class SeedService implements OnModuleInit {
 
 			// Inserta eventos
 			const events = seedData.events;
+			const savedEvents = [];
 			for (const event of events) {
 				const eventType = savedEventTypes.find(
 					(et) => et.name === event.eventTypeName,
@@ -126,7 +130,8 @@ export class SeedService implements OnModuleInit {
 					...event,
 					eventType,
 				});
-				await this.eventRepository.save(eventEntity);
+				const savedEvent = await this.eventRepository.save(eventEntity);
+				savedEvents.push(savedEvent);
 				console.log(`Event saved: ${event.name}`);
 			}
 
@@ -151,6 +156,7 @@ export class SeedService implements OnModuleInit {
 
 			// Inserta estudiantes
 			const students = seedData.students;
+			const savedStudents = [];
 			for (const studentData of students) {
 				// Filtra perfiles con rol "Estudiante"
 				const profile = savedProfiles.find(
@@ -185,9 +191,48 @@ export class SeedService implements OnModuleInit {
 					carrier,
 					cycle,
 				});
-				await this.studentRepository.save(studentEntity);
+				const savedStudent = await this.studentRepository.save(studentEntity);
+				savedStudents.push(savedStudent);
 				console.log(
 					`Student saved with profile code: ${studentData.profileCode}`,
+				);
+			}
+
+			// Inserta student events
+			const studentEvents = seedData.studentEvents;
+			for (const studentEventData of studentEvents) {
+				const event = savedEvents.find(
+					(e) =>
+						e.name === studentEventData.eventName &&
+						e.date === studentEventData.date &&
+						e.hour === studentEventData.hour &&
+						e.location === studentEventData.location,
+				);
+				if (!event) {
+					console.error(
+						`Event not found for data: ${JSON.stringify(studentEventData)}`,
+					);
+					continue;
+				}
+
+				const student = savedStudents.find(
+					(s) => s.profile.code === studentEventData.studentProfileCode,
+				);
+				if (!student) {
+					console.error(
+						`Student not found for profile code: ${studentEventData.studentProfileCode}`,
+					);
+					continue;
+				}
+
+				const studentEventEntity = this.studentEventRepository.create({
+					assistante: studentEventData.assistante,
+					student,
+					event,
+				});
+				await this.studentEventRepository.save(studentEventEntity);
+				console.log(
+					`Student Event saved for student code: ${studentEventData.studentProfileCode}`,
 				);
 			}
 
