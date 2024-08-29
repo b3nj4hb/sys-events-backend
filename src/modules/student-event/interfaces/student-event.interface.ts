@@ -1,1 +1,3 @@
-export interface StudentEvent {}
+export interface StudentEvent {
+	assistante: boolean;
+}
