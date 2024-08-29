@@ -8,10 +8,19 @@ import { StudentModule } from './modules/student/student.module';
 import { EventModule } from './modules/event/event.module';
 import { StudentEventModule } from './modules/student-event/student-event.module';
 import { CarrierModule } from './modules/carrier/carrier.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), ProfileModule, StudentModule, EventModule, StudentEventModule, CarrierModule,],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		TypeOrmModule.forRoot(typeOrmConfig),
+		ProfileModule,
+		StudentModule,
+		EventModule,
+		StudentEventModule,
+		CarrierModule,
+		SeedModule,
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
