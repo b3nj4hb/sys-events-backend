@@ -6,6 +6,7 @@ import { CycleEntity } from 'src/modules/student/entities/cycle.entity';
 import { RoleEntity } from 'src/modules/profile/entities/role.entity';
 import { EventTypeEntity } from 'src/modules/event/entities/event-type.entity';
 import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
+import { EventEntity } from 'src/modules/event/entities/event.entity';
 
 @Module({
 	imports: [
@@ -15,6 +16,7 @@ import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 			FacultyEntity,
 			RoleEntity,
 			CarrierEntity,
+			EventEntity,
 		]),
 	],
 	providers: [SeedService],

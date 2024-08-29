@@ -8,6 +8,7 @@ import { FacultyEntity } from 'src/modules/carrier/entities/faculty.entity';
 import { EventTypeEntity } from 'src/modules/event/entities/event-type.entity';
 import { CycleEntity } from 'src/modules/student/entities/cycle.entity';
 import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
+import { EventEntity } from 'src/modules/event/entities/event.entity';
 
 dotenv.config(); // Carga las variables de entorno del archivo .env
 
@@ -24,6 +25,8 @@ export class SeedService implements OnModuleInit {
 		private readonly eventTypeRepository: Repository<EventTypeEntity>,
 		@InjectRepository(CarrierEntity)
 		private readonly carrierRepository: Repository<CarrierEntity>,
+		@InjectRepository(EventEntity)
+		private readonly eventRepository: Repository<EventEntity>,
 		// agregar mas en caso necesitar
 	) {}
 
@@ -62,10 +65,13 @@ export class SeedService implements OnModuleInit {
 			}
 
 			// Inserta tipos de eventos
-			const eventTypes = seedData.eventTypes; // Asegúrate de que seedData tenga una propiedad 'eventTypes'
+			const eventTypes = seedData.eventTypes;
+			const savedEventTypes = [];
 			for (const eventType of eventTypes) {
 				const eventTypeEntity = this.eventTypeRepository.create(eventType);
-				await this.eventTypeRepository.save(eventTypeEntity);
+				const savedEventType =
+					await this.eventTypeRepository.save(eventTypeEntity);
+				savedEventTypes.push(savedEventType);
 				console.log(`Event Type saved: ${eventType.name}`);
 			}
 
@@ -89,6 +95,27 @@ export class SeedService implements OnModuleInit {
 				});
 				await this.carrierRepository.save(carrierEntity);
 				console.log(`Carrier saved: ${carrier.name}`);
+			}
+
+			// Inserta eventos
+			const events = seedData.events;
+			for (const event of events) {
+				const eventType = savedEventTypes.find(
+					(et) => et.name === event.eventTypeName,
+				);
+				if (!eventType) {
+					console.error(
+						`Event Type not found for event: ${event.eventTypeName}`,
+					);
+					continue;
+				}
+
+				const eventEntity = this.eventRepository.create({
+					...event,
+					eventType,
+				});
+				await this.eventRepository.save(eventEntity);
+				console.log(`Event saved: ${event.name}`);
 			}
 
 			// agregar mas en caso necesitar
