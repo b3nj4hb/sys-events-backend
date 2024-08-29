@@ -138,4 +138,41 @@ export const seedData = {
 			password: '$2y$10$NWwGCDDWstyl2LKimBf.POrH3SGOo58Hsb4qQ65xNQWVywgE6Yswi',
 		},
 	],
+	students: [
+		{
+			profileCode: '202098765',
+			carrierName: 'Ingeniería de Sistemas',
+			cycleName: 'I',
+		},
+		{
+			profileCode: '202187654',
+			carrierName: 'Psicología',
+			cycleName: 'II',
+		},
+		{
+			profileCode: '201976543',
+			carrierName: 'Ingeniería de Sistemas',
+			cycleName: 'III',
+		},
+		{
+			profileCode: '202265432',
+			carrierName: 'Psicología',
+			cycleName: 'IV',
+		},
+		{
+			profileCode: '202054321',
+			carrierName: 'Ingeniería de Sistemas',
+			cycleName: 'V',
+		},
+		{
+			profileCode: '202054381',
+			carrierName: 'Psicología',
+			cycleName: 'VI',
+		},
+		{
+			profileCode: '200209322',
+			carrierName: 'Ingeniería de Sistemas',
+			cycleName: 'VII',
+		},
+	],
 };

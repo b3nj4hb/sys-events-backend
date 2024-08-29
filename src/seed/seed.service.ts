@@ -10,6 +10,7 @@ import { CycleEntity } from 'src/modules/student/entities/cycle.entity';
 import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 import { EventEntity } from 'src/modules/event/entities/event.entity';
 import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
+import { StudentEntity } from 'src/modules/student/entities/student.entity';
 
 dotenv.config(); // Carga las variables de entorno del archivo .env
 
@@ -30,6 +31,8 @@ export class SeedService implements OnModuleInit {
 		private readonly eventRepository: Repository<EventEntity>,
 		@InjectRepository(ProfileEntity)
 		private readonly profileRepository: Repository<ProfileEntity>,
+		@InjectRepository(StudentEntity)
+		private readonly studentRepository: Repository<StudentEntity>,
 		// agregar mas en caso necesitar
 	) {}
 
@@ -62,10 +65,12 @@ export class SeedService implements OnModuleInit {
 			}
 
 			// Inserta ciclos
-			const cycles = seedData.cycles; // Asegúrate de que seedData tenga una propiedad 'cycles'
+			const cycles = seedData.cycles;
+			const savedCycles = [];
 			for (const cycle of cycles) {
 				const cycleEntity = this.cycleRepository.create(cycle);
-				await this.cycleRepository.save(cycleEntity);
+				const savedCycle = await this.cycleRepository.save(cycleEntity);
+				savedCycles.push(savedCycle);
 				console.log(`Cycle saved: ${cycle.name}`);
 			}
 
@@ -81,7 +86,8 @@ export class SeedService implements OnModuleInit {
 			}
 
 			// Inserta carriers
-			const carriers = seedData.carriers; // Asegúrate de que seedData tenga una propiedad 'carriers'
+			const carriers = seedData.carriers;
+			const savedCarriers = [];
 			for (const carrier of carriers) {
 				// Encuentra la facultad correspondiente para este carrier
 				const faculty = savedFaculties.find(
@@ -98,7 +104,8 @@ export class SeedService implements OnModuleInit {
 					...carrier,
 					faculty,
 				});
-				await this.carrierRepository.save(carrierEntity);
+				const savedCarrier = await this.carrierRepository.save(carrierEntity);
+				savedCarriers.push(savedCarrier);
 				console.log(`Carrier saved: ${carrier.name}`);
 			}
 
@@ -125,6 +132,7 @@ export class SeedService implements OnModuleInit {
 
 			// Inserta profiles
 			const profiles = seedData.profiles;
+			const savedProfiles = [];
 			for (const profile of profiles) {
 				const role = savedRoles.find((r) => r.name === profile.roleName);
 				if (!role) {
@@ -136,8 +144,51 @@ export class SeedService implements OnModuleInit {
 					...profile,
 					role,
 				});
-				await this.profileRepository.save(profileEntity);
+				const savedProfile = await this.profileRepository.save(profileEntity);
+				savedProfiles.push(savedProfile);
 				console.log(`Profile saved: ${profile.fullName}`);
+			}
+
+			// Inserta estudiantes
+			const students = seedData.students;
+			for (const studentData of students) {
+				// Filtra perfiles con rol "Estudiante"
+				const profile = savedProfiles.find(
+					(p) =>
+						p.code === studentData.profileCode && p.role.name === 'Estudiante',
+				);
+				if (!profile) {
+					console.error(
+						`Profile not found for code: ${studentData.profileCode}`,
+					);
+					continue;
+				}
+
+				const carrier = savedCarriers.find(
+					(c) => c.name === studentData.carrierName,
+				);
+				if (!carrier) {
+					console.error(
+						`Carrier not found for name: ${studentData.carrierName}`,
+					);
+					continue;
+				}
+
+				const cycle = savedCycles.find((c) => c.name === studentData.cycleName);
+				if (!cycle) {
+					console.error(`Cycle not found for name: ${studentData.cycleName}`);
+					continue;
+				}
+
+				const studentEntity = this.studentRepository.create({
+					profile,
+					carrier,
+					cycle,
+				});
+				await this.studentRepository.save(studentEntity);
+				console.log(
+					`Student saved with profile code: ${studentData.profileCode}`,
+				);
 			}
 
 			// agregar mas en caso necesitar
