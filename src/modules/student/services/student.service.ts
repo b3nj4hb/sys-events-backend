@@ -20,7 +20,9 @@ export class StudentService {
 			.leftJoinAndSelect('student.studentEvent', 'studentEvent')
 			.leftJoinAndSelect('studentEvent.event', 'event')
 			.leftJoinAndSelect('event.eventType', 'eventType')
+			.leftJoinAndSelect('student.cycle', 'cycle') // Join con la tabla cycle a través de student
 			.select([
+				// Datos del estudiante y sus subclases
 				'student.id', // ID del estudiante
 				'profile.id', // ID del profile
 				'profile.fullName', // Nombre completo del perfil
@@ -28,10 +30,21 @@ export class StudentService {
 				'profile.code', // Codigo del perfil
 				'profile.phone', // Numero de telefono
 				'profile.email', // Email del perfil
+
+				// Datos del rol asociado al perfil
 				'role.name', // Nombre del rol
+
+				// Datos de la carrera y facultad asociada
 				'carrier.name', // Nombre de la carrera
 				'faculty.name', // Nombre de la facultad
+
+				// Datos del ciclo asociado
+				'cycle.name',
+
+				// Datos del studentEvent
 				'studentEvent.assistante', // Asistencia al evento
+
+				// Datos del evento
 				'event.name', // Nombre del evento
 				'event.date', // Fecha del evento
 				'event.hour', // Hora del evento
