@@ -7,6 +7,7 @@ import { RoleEntity } from 'src/modules/profile/entities/role.entity';
 import { EventTypeEntity } from 'src/modules/event/entities/event-type.entity';
 import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 import { EventEntity } from 'src/modules/event/entities/event.entity';
+import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
 
 @Module({
 	imports: [
@@ -17,6 +18,7 @@ import { EventEntity } from 'src/modules/event/entities/event.entity';
 			RoleEntity,
 			CarrierEntity,
 			EventEntity,
+			ProfileEntity,
 		]),
 	],
 	providers: [SeedService],

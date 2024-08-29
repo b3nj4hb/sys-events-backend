@@ -9,6 +9,7 @@ import { EventTypeEntity } from 'src/modules/event/entities/event-type.entity';
 import { CycleEntity } from 'src/modules/student/entities/cycle.entity';
 import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 import { EventEntity } from 'src/modules/event/entities/event.entity';
+import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
 
 dotenv.config(); // Carga las variables de entorno del archivo .env
 
@@ -27,6 +28,8 @@ export class SeedService implements OnModuleInit {
 		private readonly carrierRepository: Repository<CarrierEntity>,
 		@InjectRepository(EventEntity)
 		private readonly eventRepository: Repository<EventEntity>,
+		@InjectRepository(ProfileEntity)
+		private readonly profileRepository: Repository<ProfileEntity>,
 		// agregar mas en caso necesitar
 	) {}
 
@@ -39,10 +42,12 @@ export class SeedService implements OnModuleInit {
 	async seed() {
 		try {
 			// Inserta roles
-			const roles = seedData.roles; // Asegúrate de que seedData tenga una propiedad 'roles'
+			const roles = seedData.roles;
+			const savedRoles = [];
 			for (const role of roles) {
 				const roleEntity = this.roleRepository.create(role);
-				await this.roleRepository.save(roleEntity);
+				const savedRole = await this.roleRepository.save(roleEntity);
+				savedRoles.push(savedRole);
 				console.log(`Role saved: ${role.name}`);
 			}
 
@@ -116,6 +121,23 @@ export class SeedService implements OnModuleInit {
 				});
 				await this.eventRepository.save(eventEntity);
 				console.log(`Event saved: ${event.name}`);
+			}
+
+			// Inserta profiles
+			const profiles = seedData.profiles;
+			for (const profile of profiles) {
+				const role = savedRoles.find((r) => r.name === profile.roleName);
+				if (!role) {
+					console.error(`Role not found for profile: ${profile.roleName}`);
+					continue;
+				}
+
+				const profileEntity = this.profileRepository.create({
+					...profile,
+					role,
+				});
+				await this.profileRepository.save(profileEntity);
+				console.log(`Profile saved: ${profile.fullName}`);
 			}
 
 			// agregar mas en caso necesitar
