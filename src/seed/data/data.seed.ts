@@ -19,4 +19,11 @@ export const seedData = {
 		{ name: 'X' },
 	],
 	eventTypes: [{ name: 'Cultura' }, { name: 'Actívate' }],
+	carriers: [
+		{
+			name: 'Ingeniería de Sistemas',
+			facultyName: 'Ingeniería y Arquitectura',
+		},
+		{ name: 'Psicología', facultyName: 'Ciencias Humanas y Educación' },
+	],
 };

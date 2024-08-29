@@ -7,6 +7,7 @@ import { RoleEntity } from 'src/modules/profile/entities/role.entity';
 import { FacultyEntity } from 'src/modules/carrier/entities/faculty.entity';
 import { EventTypeEntity } from 'src/modules/event/entities/event-type.entity';
 import { CycleEntity } from 'src/modules/student/entities/cycle.entity';
+import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 
 dotenv.config(); // Carga las variables de entorno del archivo .env
 
@@ -21,6 +22,8 @@ export class SeedService implements OnModuleInit {
 		private readonly cycleRepository: Repository<CycleEntity>,
 		@InjectRepository(EventTypeEntity)
 		private readonly eventTypeRepository: Repository<EventTypeEntity>,
+		@InjectRepository(CarrierEntity)
+		private readonly carrierRepository: Repository<CarrierEntity>,
 		// agregar mas en caso necesitar
 	) {}
 
@@ -41,10 +44,12 @@ export class SeedService implements OnModuleInit {
 			}
 
 			// Inserta facultades
-			const faculties = seedData.faculties; // Asegúrate de que seedData tenga una propiedad 'faculties'
+			const faculties = seedData.faculties;
+			const savedFaculties = [];
 			for (const faculty of faculties) {
 				const facultyEntity = this.facultyRepository.create(faculty);
-				await this.facultyRepository.save(facultyEntity);
+				const savedFaculty = await this.facultyRepository.save(facultyEntity);
+				savedFaculties.push(savedFaculty);
 				console.log(`Faculty saved: ${faculty.name}`);
 			}
 
@@ -62,6 +67,28 @@ export class SeedService implements OnModuleInit {
 				const eventTypeEntity = this.eventTypeRepository.create(eventType);
 				await this.eventTypeRepository.save(eventTypeEntity);
 				console.log(`Event Type saved: ${eventType.name}`);
+			}
+
+			// Inserta carriers
+			const carriers = seedData.carriers; // Asegúrate de que seedData tenga una propiedad 'carriers'
+			for (const carrier of carriers) {
+				// Encuentra la facultad correspondiente para este carrier
+				const faculty = savedFaculties.find(
+					(f) => f.name === carrier.facultyName,
+				);
+				if (!faculty) {
+					console.error(
+						`Faculty not found for carrier: ${carrier.facultyName}`,
+					);
+					continue;
+				}
+
+				const carrierEntity = this.carrierRepository.create({
+					...carrier,
+					faculty,
+				});
+				await this.carrierRepository.save(carrierEntity);
+				console.log(`Carrier saved: ${carrier.name}`);
 			}
 
 			// agregar mas en caso necesitar
