@@ -1,24 +1,24 @@
-import { STATES } from '../constants/states'
-import { Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { STATES } from '../constants/states';
+import { Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 export abstract class BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
-	id: string
+	id: string;
 	@CreateDateColumn({
 		type: 'timestamp',
-		name: 'created_at',
+		name: 'createdAt',
 	})
-	created_at: Date
+	created_at: Date;
 	@CreateDateColumn({
 		type: 'timestamp',
-		name: 'updated_at',
+		name: 'updatedAt',
 	})
-	updated_at: Date
+	updated_at: Date;
 	@Column({
 		type: 'enum',
 		enum: STATES,
 		default: STATES.Active,
 		name: 'state',
 	})
-	state!: STATES
+	state!: STATES;
 }
