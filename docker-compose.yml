@@ -1,38 +1,35 @@
 services:
-    nestbackend:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        container_name: nestbackend
-        image: sys-events-backend/nestbackend
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
-        command: bash start-container
-        ports:
-            - '${APP_FORWARD_PORT:-3000}:3000'
-        volumes:
-            - '.:/app'
-        networks:
-            - backend_network
-        depends_on:
-            - postgres
-    postgres:
-        container_name: postgres
-        image: 'postgres:16'
-        ports:
-            - '${FORWARD_DB_PORT:-5432}:5432'
-        environment:
-            POSTGRES_PASSWORD: '${DB_PASSWORD}'
-            POSTGRES_USER: '${DB_USERNAME}'
-            POSTGRES_DB: '${DB_NAME}'
-        restart: unless-stopped
-        volumes:
-            - 'postgres-volume:/var/lib/mysql'
-        networks:
-            - backend_network
+  nestbackend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nestbackend
+    image: sys-events-backend/nestbackend
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    command: bash start-container
+    ports:
+      - '${APP_FORWARD_PORT:-3000}:3000'
+    volumes:
+      - '.:/app'
+    networks:
+      - backend_network
+    depends_on:
+      - postgres
+  postgres:
+    container_name: postgres
+    image: 'postgres:16'
+    ports:
+      - '${FORWARD_DB_PORT:-5432}:5432'
+    environment:
+      POSTGRES_PASSWORD: '${DB_PASSWORD}'
+      POSTGRES_USER: '${DB_USERNAME}'
+      POSTGRES_DB: '${DB_NAME}'
+    restart: unless-stopped
+    volumes:
+      - './pgdata:/var/lib/postgresql/data'
+    networks:
+      - backend_network
 networks:
-    backend_network:
-        driver: bridge
-volumes:
-    postgres-volume:
-        driver: local
+  backend_network:
+    driver: bridge

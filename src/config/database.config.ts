@@ -12,6 +12,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
 	database: process.env.DB_NAME,
 	entities: [__dirname + '/../modules/**/entities/*.entity{.ts,.js}'],
 	// dropSchema: true,
-	// synchronize: true,
+	synchronize: true,
 	// ssl: { rejectUnauthorized: true, ca: process.env.DB_CA },
 };
