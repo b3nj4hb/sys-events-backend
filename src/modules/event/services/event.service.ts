@@ -12,7 +12,7 @@ export class EventService {
 		@InjectRepository(EventEntity)
 		private readonly eventRepository: Repository<EventEntity>,
 
-    @InjectRepository(EventTypeEntity)
+		@InjectRepository(EventTypeEntity)
 		private readonly eventTypeRepository: Repository<EventTypeEntity>,
 	) {}
 
@@ -62,66 +62,71 @@ export class EventService {
 			.getMany();
 	}
 
-  async createEvent(createEventDto: CreateEventDto): Promise<EventEntity> {
-    const { name, date, hour, location, period, eventTypeId } = createEventDto;
+	async createEvent(createEventDto: CreateEventDto): Promise<EventEntity> {
+		const { name, date, hour, location, period, eventTypeId } = createEventDto;
 
-    // Buscar el tipo de evento por su ID
-    const eventType = await this.eventTypeRepository.findOne({ where: { id: eventTypeId } });
+		// Buscar el tipo de evento por su ID
+		const eventType = await this.eventTypeRepository.findOne({
+			where: { id: eventTypeId },
+		});
 
-    //const eventType = await this.eventTypeRepository.findOne({ where: { name: eventTypeName } });
+		//const eventType = await this.eventTypeRepository.findOne({ where: { name: eventTypeName } });
 
-    /*if (!eventType) {
+		/*if (!eventType) {
       throw new NotFoundException('Event type not found');
     }*/
-    if (!eventType) {
-      throw new NotFoundException(`Event type with name "${eventTypeId}" not found`);
-    }
+		if (!eventType) {
+			throw new NotFoundException(
+				`Event type with name "${eventTypeId}" not found`,
+			);
+		}
 
-    // Crear un nuevo evento con los datos proporcionados
-    const event = this.eventRepository.create({
-      name,
-      date,
-      hour,
-      location,
-      period,
-      eventType, // Asocia el tipo de evento encontrado
-    });
+		// Crear un nuevo evento con los datos proporcionados
+		const event = this.eventRepository.create({
+			name,
+			date,
+			hour,
+			location,
+			period,
+			eventType, // Asocia el tipo de evento encontrado
+		});
 
-    // Guardar el evento en la base de datos
-    return this.eventRepository.save(event);
-  }
+		// Guardar el evento en la base de datos
+		return this.eventRepository.save(event);
+	}
 
-  
-   // Método para actualizar un evento existente
-   async updateEvent(updateEventDto: UpdateEventDto): Promise<EventEntity> {
-    const { id, name, date, hour, location, period, eventTypeId } = updateEventDto;
+	// Método para actualizar un evento existente
+	async updateEvent(updateEventDto: UpdateEventDto): Promise<EventEntity> {
+		const { id, name, date, hour, location, period, eventTypeId } =
+			updateEventDto;
 
-    // Buscar el evento por su ID
-    const event = await this.eventRepository.findOne({ where: { id } });
+		// Buscar el evento por su ID
+		const event = await this.eventRepository.findOne({ where: { id } });
 
-    if (!event) {
-      throw new NotFoundException(`Event with ID "${id}" not found`);
-    }
+		if (!event) {
+			throw new NotFoundException(`Event with ID "${id}" not found`);
+		}
 
-    // Buscar el tipo de evento por su ID
-    const eventType = await this.eventTypeRepository.findOne({ where: { id: eventTypeId } });
+		// Buscar el tipo de evento por su ID
+		const eventType = await this.eventTypeRepository.findOne({
+			where: { id: eventTypeId },
+		});
 
-    if (!eventType) {
-      throw new NotFoundException(`Event type with ID "${eventTypeId}" not found`);
-    }
+		if (!eventType) {
+			throw new NotFoundException(
+				`Event type with ID "${eventTypeId}" not found`,
+			);
+		}
 
-    // Actualizar los campos del evento
-    event.name = name;
-    event.date = date;
-    event.hour = hour;
-    event.location = location;
-    event.period = period;
-    event.eventType = eventType;
+		// Actualizar los campos del evento
+		event.name = name;
+		event.date = date;
+		event.hour = hour;
+		event.location = location;
+		event.period = period;
+		event.eventType = eventType;
 
-    // Guardar los cambios en la base de datos
-    return this.eventRepository.save(event);
-  }
-
+		// Guardar los cambios en la base de datos
+		return this.eventRepository.save(event);
+	}
 }
-
-
