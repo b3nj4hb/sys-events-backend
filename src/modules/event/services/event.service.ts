@@ -166,4 +166,23 @@ export class EventService {
 
 		await this.eventRepository.save(event);
 	}
+
+	async deleteEvent(eventId: string): Promise<void> {
+		// Buscar el evento por ID
+		const event = await this.eventRepository.findOne({
+			where: { id: eventId },
+		});
+
+		if (!event) {
+			throw new NotFoundException(`Event with ID "${eventId}" not found`);
+		}
+
+		// Eliminar el archivo del bucket si existe
+		if (event.fileId) {
+			await this.deleteFile(event.id);
+		}
+
+		// Eliminar el evento de la base de datos
+		await this.eventRepository.remove(event);
+	}
 }

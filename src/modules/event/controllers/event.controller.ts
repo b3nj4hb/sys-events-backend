@@ -26,4 +26,8 @@ export class EventController {
 	async deleteFile(@Param('id') eventId: string): Promise<void> {
 		return this.eventService.deleteFile(eventId);
 	}
+	@Delete(':id')
+	async deleteEvent(@Param('id') eventId: string): Promise<void> {
+		return this.eventService.deleteEvent(eventId);
+	}
 }
