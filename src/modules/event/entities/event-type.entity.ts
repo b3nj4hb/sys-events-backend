@@ -7,10 +7,6 @@ import { ApiProperty } from '@nestjs/swagger';
 @Entity({ name: 'eventType' })
 export class EventTypeEntity extends BaseEntity implements EventType {
 	@Column()
-	@ApiProperty({
-		description: 'Name of the event type',
-		example: 'Cultura',
-	})
 	name: string;
 
 	@OneToMany(() => EventEntity, (event) => event.eventType)
