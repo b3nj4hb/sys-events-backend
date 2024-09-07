@@ -37,6 +37,7 @@ export class EventService {
 				'event.location',
 				'event.period',
 				'eventType.name',
+				'event.fileUrl',
 
 				// Datos del studentEvent
 				'studentEvent.assistante',

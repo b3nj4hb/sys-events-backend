@@ -51,6 +51,7 @@ export class StudentService {
 				'event.location', // Ubicación del evento
 				'event.period', // Periodo del evento
 				'eventType.name', // Tipo de evento
+				'event.fileUrl',
 			])
 			.getMany();
 	}
