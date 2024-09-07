@@ -185,19 +185,25 @@ export class EventService {
 			throw new NotFoundException(`Event with ID "${eventId}" not found`);
 		}
 
-		// Eliminar el archivo del bucket
-		const command = new DeleteObjectCommand({
-			Bucket: process.env.BUCKET,
-			Key: event.fileId, // ID del archivo en el bucket
-		});
+		// Verificar si el evento tiene un archivo asociado
+		if (event.fileId && event.fileUrl) {
+			// Eliminar el archivo del bucket
+			const command = new DeleteObjectCommand({
+				Bucket: process.env.BUCKET,
+				Key: event.fileId, // ID del archivo en el bucket
+			});
 
-		await R2Client.send(command); // Ejecutar la eliminación del archivo
+			await R2Client.send(command); // Ejecutar la eliminación del archivo
 
-		// Actualizar el registro en la base de datos
-		event.fileId = null;
-		event.fileUrl = null;
+			// Actualizar el registro en la base de datos
+			event.fileId = null;
+			event.fileUrl = null;
 
-		await this.eventRepository.save(event);
+			await this.eventRepository.save(event);
+		} else {
+			// Si no hay archivo asociado, solo actualiza el registro
+			console.log('No file to delete for event ID:', eventId);
+		}
 	}
 
 	async deleteEvent(eventId: string): Promise<void> {
