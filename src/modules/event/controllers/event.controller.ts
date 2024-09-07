@@ -40,7 +40,7 @@ export class EventController {
 	}
 
 	@Delete('file/:id')
-	@ApiTags('Event')
+	@ApiTags('Event File')
 	@ApiParam({
 		name: 'id',
 		type: 'string',
