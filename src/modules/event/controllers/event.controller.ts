@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Body, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, UseInterceptors, UploadedFile, Delete, Param } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { EventService } from '../services/event.service';
 import { CreateEventDto } from '../dto/create-event.dto';
@@ -21,5 +21,9 @@ export class EventController {
 	@Put('update-event')
 	async update(@Body() updateEventDto: UpdateEventDto): Promise<EventEntity> {
 		return this.eventService.updateEvent(updateEventDto);
+	}
+	@Delete('file/:id')
+	async deleteFile(@Param('id') eventId: string): Promise<void> {
+		return this.eventService.deleteFile(eventId);
 	}
 }

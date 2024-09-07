@@ -5,7 +5,7 @@ import { EventEntity } from '../entities/event.entity';
 import { EventTypeEntity } from '../entities/event-type.entity'; // Importa la entidad EventType
 import { CreateEventDto } from '../dto/create-event.dto'; // Asegúrate de tener el DTO creado
 import { UpdateEventDto } from '../dto/update-event.dto';
-import { PutObjectCommand } from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { R2Client } from 'src/config/cloudflare-r2.config';
 
 @Injectable()
@@ -140,5 +140,30 @@ export class EventService {
 
 		// Guardar los cambios en la base de datos
 		return this.eventRepository.save(event);
+	}
+
+	async deleteFile(eventId: string): Promise<void> {
+		// Buscar el evento por ID
+		const event = await this.eventRepository.findOne({
+			where: { id: eventId },
+		});
+
+		if (!event) {
+			throw new NotFoundException(`Event with ID "${eventId}" not found`);
+		}
+
+		// Eliminar el archivo del bucket
+		const command = new DeleteObjectCommand({
+			Bucket: process.env.BUCKET,
+			Key: event.fileId, // ID del archivo en el bucket
+		});
+
+		await R2Client.send(command); // Ejecutar la eliminación del archivo
+
+		// Actualizar el registro en la base de datos
+		event.fileId = null;
+		event.fileUrl = null;
+
+		await this.eventRepository.save(event);
 	}
 }
