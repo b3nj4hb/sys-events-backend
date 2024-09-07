@@ -5,6 +5,7 @@ import { EventEntity } from '../entities/event.entity';
 import { EventDto } from '../dto/event.dto';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { EventTypeEntity } from '../entities/event-type.entity';
+import { eventTypesExample } from 'src/examples/event-types.example';
 
 @Controller('Event')
 export class EventController {
@@ -72,6 +73,9 @@ export class EventController {
 		status: 200,
 		description: 'Successfully retrieved the list of event types',
 		type: [EventTypeEntity], // Puedes usar el DTO aquí si has creado uno
+		example: {
+			'application/json': eventTypesExample,
+		},
 	})
 	async getEventTypes(): Promise<EventTypeEntity[]> {
 		return this.eventService.getEventTypes();
