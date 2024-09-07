@@ -13,7 +13,7 @@ export class StudentController {
 	@ApiOperation({ summary: "Retrieve student's with the events attendance status" })
 	@ApiResponse({
 		status: 200,
-		description: 'Successfully retrieved the list of event types',
+		description: "Successfully retrieved the list of student's with the events attendance status",
 		example: {
 			'application/json': studentWithEventsExample,
 		},
