@@ -3,6 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { EventService } from '../services/event.service';
 import { EventEntity } from '../entities/event.entity';
 import { EventDto } from '../dto/event.dto';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('event')
 export class EventController {
@@ -14,6 +15,7 @@ export class EventController {
 	}
 	@Post('create-event')
 	@UseInterceptors(FileInterceptor('file'))
+	@ApiOperation({ summary: 'Create a new event' })
 	async create(@Body() createEventDto: EventDto, @UploadedFile() file: Express.Multer.File): Promise<EventEntity> {
 		return this.eventService.createEvent({ ...createEventDto, file });
 	}
