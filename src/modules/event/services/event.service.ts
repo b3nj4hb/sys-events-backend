@@ -5,6 +5,8 @@ import { EventEntity } from '../entities/event.entity';
 import { EventTypeEntity } from '../entities/event-type.entity'; // Importa la entidad EventType
 import { CreateEventDto } from '../dto/create-event.dto'; // Asegúrate de tener el DTO creado
 import { UpdateEventDto } from '../dto/update-event.dto';
+import { PutObjectCommand } from '@aws-sdk/client-s3';
+import { R2Client } from 'src/config/cloudflare-r2.config';
 
 @Injectable()
 export class EventService {
@@ -62,7 +64,7 @@ export class EventService {
 			.getMany();
 	}
 
-	async createEvent(createEventDto: CreateEventDto): Promise<EventEntity> {
+	async createEvent(createEventDto: CreateEventDto, file: Express.Multer.File): Promise<EventEntity> {
 		const { name, date, hour, location, period, eventTypeId } = createEventDto;
 
 		// Buscar el tipo de evento por su ID
@@ -76,10 +78,21 @@ export class EventService {
       throw new NotFoundException('Event type not found');
     }*/
 		if (!eventType) {
-			throw new NotFoundException(
-				`Event type with name "${eventTypeId}" not found`,
-			);
+			throw new NotFoundException(`Event type with name "${eventTypeId}" not found`);
 		}
+
+		// Subir el archivo a R2
+		const fileId = `${Date.now()}-${file.originalname}`; // Generar un ID único para el archivo
+		const fileUrl = `${process.env.DEV_BUCKET_URL}/${fileId}`;
+
+		const command = new PutObjectCommand({
+			Bucket: process.env.BUCKET, // El bucket de R2
+			Key: fileId, // El nombre del archivo
+			Body: file.buffer, // El contenido del archivo
+			ContentType: file.mimetype, // Tipo MIME del archivo
+		});
+
+		await R2Client.send(command); // Ejecutar la subida del archivo
 
 		// Crear un nuevo evento con los datos proporcionados
 		const event = this.eventRepository.create({
@@ -89,6 +102,8 @@ export class EventService {
 			location,
 			period,
 			eventType, // Asocia el tipo de evento encontrado
+			fileId, // ID del archivo en el bucket
+			fileUrl, // URL para acceder al archivo
 		});
 
 		// Guardar el evento en la base de datos
@@ -97,8 +112,7 @@ export class EventService {
 
 	// Método para actualizar un evento existente
 	async updateEvent(updateEventDto: UpdateEventDto): Promise<EventEntity> {
-		const { id, name, date, hour, location, period, eventTypeId } =
-			updateEventDto;
+		const { id, name, date, hour, location, period, eventTypeId } = updateEventDto;
 
 		// Buscar el evento por su ID
 		const event = await this.eventRepository.findOne({ where: { id } });
@@ -113,9 +127,7 @@ export class EventService {
 		});
 
 		if (!eventType) {
-			throw new NotFoundException(
-				`Event type with ID "${eventTypeId}" not found`,
-			);
+			throw new NotFoundException(`Event type with ID "${eventTypeId}" not found`);
 		}
 
 		// Actualizar los campos del evento
