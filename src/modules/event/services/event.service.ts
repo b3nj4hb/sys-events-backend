@@ -112,7 +112,7 @@ export class EventService {
 
 	// Método para actualizar un evento existente
 	async updateEvent(updateEventDto: UpdateEventDto): Promise<EventEntity> {
-		const { id, name, date, hour, location, period, eventTypeId } = updateEventDto;
+		const { id, name, date, hour, location, period, eventTypeId, fileId, fileUrl, file } = updateEventDto;
 
 		// Buscar el evento por su ID
 		const event = await this.eventRepository.findOne({ where: { id } });
@@ -131,12 +131,41 @@ export class EventService {
 		}
 
 		// Actualizar los campos del evento
-		event.name = name;
-		event.date = date;
-		event.hour = hour;
-		event.location = location;
-		event.period = period;
-		event.eventType = eventType;
+		if (name) event.name = name;
+		if (date) event.date = date;
+		if (hour) event.hour = hour;
+		if (location) event.location = location;
+		if (period) event.period = period;
+		if (eventType) event.eventType = eventType;
+
+		// Actualizar fileId y fileUrl si se proporcionan
+		if (fileId) event.fileId = fileId;
+		if (fileUrl) event.fileUrl = fileUrl;
+
+		// Si se proporciona un archivo nuevo, manejar la subida y actualización
+		if (file) {
+			// Eliminar el archivo antiguo del bucket
+			if (event.fileId) {
+				await this.deleteFile(event.id);
+			}
+
+			// Subir el nuevo archivo
+			const newFileId = `${Date.now()}-${file.originalname}`; // Generar un ID único para el archivo
+			const newFileUrl = `${process.env.DEV_BUCKET_URL}/${newFileId}`;
+
+			const command = new PutObjectCommand({
+				Bucket: process.env.BUCKET, // El bucket de R2
+				Key: newFileId, // El nombre del archivo
+				Body: file.buffer, // El contenido del archivo
+				ContentType: file.mimetype, // Tipo MIME del archivo
+			});
+
+			await R2Client.send(command); // Ejecutar la subida del archivo
+
+			// Actualizar el evento con el nuevo archivo
+			event.fileId = newFileId;
+			event.fileUrl = newFileUrl;
+		}
 
 		// Guardar los cambios en la base de datos
 		return this.eventRepository.save(event);

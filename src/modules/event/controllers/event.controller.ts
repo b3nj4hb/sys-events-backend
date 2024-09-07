@@ -18,9 +18,10 @@ export class EventController {
 	async create(@Body() createEventDto: CreateEventDto, @UploadedFile() file: Express.Multer.File): Promise<EventEntity> {
 		return this.eventService.createEvent(createEventDto, file);
 	}
-	@Put('update-event')
-	async update(@Body() updateEventDto: UpdateEventDto): Promise<EventEntity> {
-		return this.eventService.updateEvent(updateEventDto);
+	@Put(':id')
+	@UseInterceptors(FileInterceptor('file'))
+	async update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto, @UploadedFile() file: Express.Multer.File): Promise<EventEntity> {
+		return this.eventService.updateEvent({ ...updateEventDto, id, file });
 	}
 	@Delete('file/:id')
 	async deleteFile(@Param('id') eventId: string): Promise<void> {
