@@ -72,7 +72,6 @@ export class EventController {
 	@ApiResponse({
 		status: 200,
 		description: 'Successfully retrieved the list of event types',
-		type: [EventTypeEntity], // Puedes usar el DTO aquí si has creado uno
 		example: {
 			'application/json': eventTypesExample,
 		},

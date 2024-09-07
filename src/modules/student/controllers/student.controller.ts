@@ -1,6 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { StudentService } from '../services/student.service';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { StudentEntity } from '../entities/student.entity';
+import { studentWithEventsExample } from 'src/examples/student-with-events.example';
 
 @ApiTags('Student')
 @Controller('student')
@@ -9,6 +11,13 @@ export class StudentController {
 
 	@Get('with-events')
 	@ApiOperation({ summary: "Retrieve student's with the events attendance status" })
+	@ApiResponse({
+		status: 200,
+		description: 'Successfully retrieved the list of event types',
+		example: {
+			'application/json': studentWithEventsExample,
+		},
+	})
 	async getStudentsWithEvents() {
 		return this.studentService.getStudentsWithEvents();
 	}
