@@ -6,6 +6,7 @@ import { EventDto } from '../dto/event.dto';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { EventTypeEntity } from '../entities/event-type.entity';
 import { eventTypesExample } from 'src/examples/event-types.example';
+import { eventWithStudentsExample } from 'src/examples/event-with-students.example';
 
 @Controller('Event')
 export class EventController {
@@ -14,6 +15,13 @@ export class EventController {
 	@Get('with-students')
 	@ApiTags('Event')
 	@ApiOperation({ summary: "Retrieve events with the student's attendance status" })
+	@ApiResponse({
+		status: 200,
+		description: "Successfully retrieved the list of events with the student's attendance status ",
+		example: {
+			'application/json': eventWithStudentsExample,
+		},
+	})
 	async getEventsWithStudents() {
 		return this.eventService.getEventsWithStudents();
 	}
