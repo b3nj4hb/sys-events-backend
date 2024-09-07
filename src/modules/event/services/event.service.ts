@@ -225,4 +225,8 @@ export class EventService {
 		// Eliminar el evento de la base de datos
 		await this.eventRepository.remove(event);
 	}
+
+	async getEventTypes(): Promise<EventTypeEntity[]> {
+		return this.eventTypeRepository.find();
+	}
 }

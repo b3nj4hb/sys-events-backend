@@ -4,19 +4,21 @@ import { EventService } from '../services/event.service';
 import { EventEntity } from '../entities/event.entity';
 import { EventDto } from '../dto/event.dto';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { EventTypeEntity } from '../entities/event-type.entity';
 
-@ApiTags('events')
-@Controller('event')
+@Controller('Event')
 export class EventController {
 	constructor(private readonly eventService: EventService) {}
 
 	@Get('with-students')
+	@ApiTags('Event')
 	@ApiOperation({ summary: "Retrieve events with the student's attendance status" })
 	async getEventsWithStudents() {
 		return this.eventService.getEventsWithStudents();
 	}
 
 	@Post('create-event')
+	@ApiTags('Event')
 	@UseInterceptors(FileInterceptor('file'))
 	@ApiOperation({ summary: 'Create a new event' })
 	async create(@Body() createEventDto: EventDto, @UploadedFile() file: Express.Multer.File): Promise<EventEntity> {
@@ -24,6 +26,7 @@ export class EventController {
 	}
 
 	@Put(':id')
+	@ApiTags('Event')
 	@UseInterceptors(FileInterceptor('file'))
 	@ApiParam({
 		name: 'id',
@@ -37,6 +40,7 @@ export class EventController {
 	}
 
 	@Delete('file/:id')
+	@ApiTags('Event')
 	@ApiParam({
 		name: 'id',
 		type: 'string',
@@ -49,6 +53,7 @@ export class EventController {
 	}
 
 	@Delete(':id')
+	@ApiTags('Event')
 	@ApiParam({
 		name: 'id',
 		type: 'string',
@@ -58,5 +63,17 @@ export class EventController {
 	@ApiOperation({ summary: 'Delete an event' })
 	async deleteEvent(@Param('id') eventId: string): Promise<void> {
 		return this.eventService.deleteEvent(eventId);
+	}
+
+	@Get('types')
+	@ApiTags('Event Type')
+	@ApiOperation({ summary: 'Get all event types' })
+	@ApiResponse({
+		status: 200,
+		description: 'Successfully retrieved the list of event types',
+		type: [EventTypeEntity], // Puedes usar el DTO aquí si has creado uno
+	})
+	async getEventTypes(): Promise<EventTypeEntity[]> {
+		return this.eventService.getEventTypes();
 	}
 }
