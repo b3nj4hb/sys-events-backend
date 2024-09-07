@@ -3,8 +3,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { EventService } from '../services/event.service';
 import { EventEntity } from '../entities/event.entity';
 import { EventDto } from '../dto/event.dto';
-import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('events')
 @Controller('event')
 export class EventController {
 	constructor(private readonly eventService: EventService) {}
