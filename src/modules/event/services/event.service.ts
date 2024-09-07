@@ -64,8 +64,8 @@ export class EventService {
 			.getMany();
 	}
 
-	async createEvent(createEventDto: CreateEventDto, file: Express.Multer.File): Promise<EventEntity> {
-		const { name, date, hour, location, period, eventTypeId } = createEventDto;
+	async createEvent(createEventDto: CreateEventDto): Promise<EventEntity> {
+		const { name, date, hour, location, period, eventTypeId, file } = createEventDto;
 
 		// Buscar el tipo de evento por su ID
 		const eventType = await this.eventTypeRepository.findOne({

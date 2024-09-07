@@ -44,4 +44,7 @@ export class CreateEventDto {
 	@IsOptional()
 	@IsString()
 	fileUrl?: string;
+
+  @IsOptional()
+	file?: Express.Multer.File; // Archivo opcional
 }

@@ -16,7 +16,9 @@ export class EventController {
 	@Post('create-event')
 	@UseInterceptors(FileInterceptor('file'))
 	async create(@Body() createEventDto: CreateEventDto, @UploadedFile() file: Express.Multer.File): Promise<EventEntity> {
-		return this.eventService.createEvent(createEventDto, file);
+		// Si el archivo está presente, incluirlo en el DTO
+		createEventDto.file = file || undefined;
+		return this.eventService.createEvent(createEventDto);
 	}
 	@Put(':id')
 	@UseInterceptors(FileInterceptor('file'))
