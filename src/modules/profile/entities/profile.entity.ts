@@ -3,6 +3,7 @@ import { Profile } from '../interfaces/profile.interface';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { RoleEntity } from './role.entity';
 import { StudentEntity } from 'src/modules/student/entities/student.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'profile' })
 export class ProfileEntity extends BaseEntity implements Profile {
@@ -17,6 +18,7 @@ export class ProfileEntity extends BaseEntity implements Profile {
 	@Column()
 	email: string;
 	@Column()
+	@Exclude()
 	password: string;
 
 	@ManyToOne(() => RoleEntity, (role) => role.profile)
