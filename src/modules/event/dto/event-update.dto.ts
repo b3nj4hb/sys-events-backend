@@ -3,12 +3,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty, IsDateString, IsUUID, IsOptional } from 'class-validator';
 import { Express } from 'express';
 
-export class EventDto {
+export class EventUpdateDto {
+	@IsOptional()
+	@IsUUID()
+	id?: string;
+
 	@ApiProperty({
 		description: 'Name of the event',
 		example: 'Actívate Sistemas',
 	})
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	name: string;
 
@@ -16,7 +20,7 @@ export class EventDto {
 		description: 'Date of the event',
 		example: '2024-09-25',
 	})
-	@IsNotEmpty()
+	@IsOptional()
 	@IsDateString()
 	date: string;
 
@@ -24,7 +28,7 @@ export class EventDto {
 		description: 'Hour of the event',
 		example: '18:00',
 	})
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	hour: string;
 
@@ -32,7 +36,7 @@ export class EventDto {
 		description: 'Location of the event',
 		example: 'Canchas sintéticas de la UPeU',
 	})
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	location: string;
 
@@ -40,7 +44,7 @@ export class EventDto {
 		description: 'Period of the event',
 		example: '2024-2',
 	})
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	period: string;
 
@@ -49,6 +53,7 @@ export class EventDto {
 		example: 'b1e33e06-f1d0-4a58-8cd7-36284179a60d',
 	})
 	@IsNotEmpty()
+	@IsOptional()
 	@IsUUID()
 	eventTypeId: string; // ID del tipo de evento
 

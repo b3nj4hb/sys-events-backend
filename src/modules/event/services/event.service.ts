@@ -6,6 +6,7 @@ import { EventTypeEntity } from '../entities/event-type.entity'; // Importa la e
 import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { R2Client } from 'src/config/cloudflare-r2.config';
 import { EventDto } from '../dto/event.dto';
+import { EventUpdateDto } from '../dto/event-update.dto';
 
 @Injectable()
 export class EventService {
@@ -116,7 +117,7 @@ export class EventService {
 	}
 
 	// Método para actualizar un evento existente
-	async updateEvent(updateEventDto: EventDto): Promise<EventEntity> {
+	async updateEvent(updateEventDto: EventUpdateDto): Promise<EventEntity> {
 		const { id, name, date, hour, location, period, eventTypeId, fileId, fileUrl, file } = updateEventDto;
 
 		// Buscar el evento por su ID

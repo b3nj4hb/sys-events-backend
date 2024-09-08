@@ -7,8 +7,9 @@ import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { EventTypeEntity } from '../entities/event-type.entity';
 import { eventTypesExample } from 'src/examples/event-types.example';
 import { eventWithStudentsExample } from 'src/examples/event-with-students.example';
+import { EventUpdateDto } from '../dto/event-update.dto';
 
-@Controller('Event')
+@Controller('event')
 export class EventController {
 	constructor(private readonly eventService: EventService) {}
 
@@ -44,7 +45,7 @@ export class EventController {
 		example: '7b4ffd79-0c1d-4670-8e47-b21168e3187b',
 	})
 	@ApiOperation({ summary: 'Update an event' })
-	async update(@Param('id') id: string, @Body() updateEventDto: EventDto, @UploadedFile() file: Express.Multer.File): Promise<EventEntity> {
+	async update(@Param('id') id: string, @Body() updateEventDto: EventUpdateDto, @UploadedFile() file: Express.Multer.File): Promise<EventEntity> {
 		return this.eventService.updateEvent({ ...updateEventDto, id, file });
 	}
 
