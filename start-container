@@ -9,7 +9,8 @@ if [[ ! -d /app/node_modules ]]; then
 fi
 
 echo "~> starting dev"
-if [ -f package-lock.json ]; then su node -c "npm run start:dev"; 
+if [ -f bun.lockb ]; then su node -c "bun start:dev"; 
+  elif [ -f package-lock.json ]; then su node -c "npm run start:dev"; 
   elif [ -f yarn.lock ]; then su node -c "yarn start:dev"; 
   elif [ -f pnpm-lock.yaml ]; then su node -c "pnpm start:dev"; 
   else echo "Lockfile not found." && exit 1; 
