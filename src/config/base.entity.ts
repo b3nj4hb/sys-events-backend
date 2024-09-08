@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { STATES } from '../constants/states';
 import { Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
 

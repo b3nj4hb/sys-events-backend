@@ -1,0 +1,847 @@
+[
+	{
+		"id": "8e1ae164-9212-4d03-94f5-8abf6f8c95ca",
+		"name": "Activate Sistemas",
+		"date": "2024-04-12",
+		"hour": "10:00:00",
+		"location": "Canchas sintéticas de la UPeU",
+		"period": "2024-1",
+		"eventType": {
+			"name": "Actívate"
+		},
+		"studentEvent": [
+			{
+				"assistante": true,
+				"student": {
+					"id": "775bb8dc-a2a4-4bae-b112-5758c06305b4",
+					"profile": {
+						"id": "4823fe00-94b1-462e-b591-4349e0ca5eca",
+						"fullName": "Juan Solis Barreto",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Juan%2BSolis",
+						"code": "202098765",
+						"phone": "987654321",
+						"email": "juan.solis@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "I"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "f9f52341-2a31-40d0-a036-a89b1ce178a1",
+					"profile": {
+						"id": "220885a5-d14f-49dd-a48e-52a73a75534b",
+						"fullName": "Mario Rodriguez Lopez",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Mario%2BRodriguez",
+						"code": "202187654",
+						"phone": "987123456",
+						"email": "mario.rodriguez@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "II"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "884a02b2-d94a-4698-88a2-673667ad066b",
+					"profile": {
+						"id": "d4699bea-25ce-4ded-8997-139b2207a142",
+						"fullName": "Carlos Mendoza Huaman",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Carlos%2BMendoza",
+						"code": "201976543",
+						"phone": "976543210",
+						"email": "carlos.mendoza@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "III"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "ce940a2f-f87e-4f9c-89cd-be3145d4d7de",
+					"profile": {
+						"id": "1292ea89-42c6-4217-a3f2-646cab305577",
+						"fullName": "Anibal Torres Quispe",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Anibal%2BTorres",
+						"code": "202265432",
+						"phone": "965432109",
+						"email": "anibal.torres@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "IV"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "bb086c9c-ebe8-46b6-a700-86fc2eba9b72",
+					"profile": {
+						"id": "9c6542dd-f2bd-4717-ac32-b58971070740",
+						"fullName": "Pedro Mamani Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Pedro%2BMamani",
+						"code": "202054321",
+						"phone": "954321098",
+						"email": "pedro.mamani@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "V"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "668bace6-4987-4525-a741-9c152b92cd27",
+					"profile": {
+						"id": "71e9778a-11f2-413c-9c4f-0f37094e41ec",
+						"fullName": "Julio Cespedes Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Julio%2BCespedes",
+						"code": "202054381",
+						"phone": "967992832",
+						"email": "julio.cespedes@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "VI"
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "5d0c8059-8636-4e31-8a1e-4b98f33200ca",
+		"name": "Cultura FIA",
+		"date": "2024-06-12",
+		"hour": "14:00:00",
+		"location": "Auditorio Principal",
+		"period": "2024-1",
+		"eventType": {
+			"name": "Cultura"
+		},
+		"studentEvent": [
+			{
+				"assistante": false,
+				"student": {
+					"id": "775bb8dc-a2a4-4bae-b112-5758c06305b4",
+					"profile": {
+						"id": "4823fe00-94b1-462e-b591-4349e0ca5eca",
+						"fullName": "Juan Solis Barreto",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Juan%2BSolis",
+						"code": "202098765",
+						"phone": "987654321",
+						"email": "juan.solis@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "I"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "f9f52341-2a31-40d0-a036-a89b1ce178a1",
+					"profile": {
+						"id": "220885a5-d14f-49dd-a48e-52a73a75534b",
+						"fullName": "Mario Rodriguez Lopez",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Mario%2BRodriguez",
+						"code": "202187654",
+						"phone": "987123456",
+						"email": "mario.rodriguez@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "II"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "884a02b2-d94a-4698-88a2-673667ad066b",
+					"profile": {
+						"id": "d4699bea-25ce-4ded-8997-139b2207a142",
+						"fullName": "Carlos Mendoza Huaman",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Carlos%2BMendoza",
+						"code": "201976543",
+						"phone": "976543210",
+						"email": "carlos.mendoza@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "III"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "ce940a2f-f87e-4f9c-89cd-be3145d4d7de",
+					"profile": {
+						"id": "1292ea89-42c6-4217-a3f2-646cab305577",
+						"fullName": "Anibal Torres Quispe",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Anibal%2BTorres",
+						"code": "202265432",
+						"phone": "965432109",
+						"email": "anibal.torres@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "IV"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "bb086c9c-ebe8-46b6-a700-86fc2eba9b72",
+					"profile": {
+						"id": "9c6542dd-f2bd-4717-ac32-b58971070740",
+						"fullName": "Pedro Mamani Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Pedro%2BMamani",
+						"code": "202054321",
+						"phone": "954321098",
+						"email": "pedro.mamani@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "V"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "668bace6-4987-4525-a741-9c152b92cd27",
+					"profile": {
+						"id": "71e9778a-11f2-413c-9c4f-0f37094e41ec",
+						"fullName": "Julio Cespedes Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Julio%2BCespedes",
+						"code": "202054381",
+						"phone": "967992832",
+						"email": "julio.cespedes@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "VI"
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "1cfaf6f4-48b3-412b-ae46-bd46a59cf7a4",
+		"name": "Activate Sistemas",
+		"date": "2024-08-09",
+		"hour": "10:00:00",
+		"location": "Lozas de la UPeU",
+		"period": "2024-2",
+		"eventType": {
+			"name": "Actívate"
+		},
+		"studentEvent": [
+			{
+				"assistante": true,
+				"student": {
+					"id": "775bb8dc-a2a4-4bae-b112-5758c06305b4",
+					"profile": {
+						"id": "4823fe00-94b1-462e-b591-4349e0ca5eca",
+						"fullName": "Juan Solis Barreto",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Juan%2BSolis",
+						"code": "202098765",
+						"phone": "987654321",
+						"email": "juan.solis@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "I"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "f9f52341-2a31-40d0-a036-a89b1ce178a1",
+					"profile": {
+						"id": "220885a5-d14f-49dd-a48e-52a73a75534b",
+						"fullName": "Mario Rodriguez Lopez",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Mario%2BRodriguez",
+						"code": "202187654",
+						"phone": "987123456",
+						"email": "mario.rodriguez@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "II"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "884a02b2-d94a-4698-88a2-673667ad066b",
+					"profile": {
+						"id": "d4699bea-25ce-4ded-8997-139b2207a142",
+						"fullName": "Carlos Mendoza Huaman",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Carlos%2BMendoza",
+						"code": "201976543",
+						"phone": "976543210",
+						"email": "carlos.mendoza@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "III"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "ce940a2f-f87e-4f9c-89cd-be3145d4d7de",
+					"profile": {
+						"id": "1292ea89-42c6-4217-a3f2-646cab305577",
+						"fullName": "Anibal Torres Quispe",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Anibal%2BTorres",
+						"code": "202265432",
+						"phone": "965432109",
+						"email": "anibal.torres@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "IV"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "bb086c9c-ebe8-46b6-a700-86fc2eba9b72",
+					"profile": {
+						"id": "9c6542dd-f2bd-4717-ac32-b58971070740",
+						"fullName": "Pedro Mamani Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Pedro%2BMamani",
+						"code": "202054321",
+						"phone": "954321098",
+						"email": "pedro.mamani@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "V"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "668bace6-4987-4525-a741-9c152b92cd27",
+					"profile": {
+						"id": "71e9778a-11f2-413c-9c4f-0f37094e41ec",
+						"fullName": "Julio Cespedes Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Julio%2BCespedes",
+						"code": "202054381",
+						"phone": "967992832",
+						"email": "julio.cespedes@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "VI"
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "5c8c8533-c75d-485f-8a45-a990bb99c96c",
+		"name": "Cultura FIA",
+		"date": "2024-08-10",
+		"hour": "10:00:00",
+		"location": "Auditorio Movil",
+		"period": "2024-2",
+		"eventType": {
+			"name": "Cultura"
+		},
+		"studentEvent": [
+			{
+				"assistante": false,
+				"student": {
+					"id": "775bb8dc-a2a4-4bae-b112-5758c06305b4",
+					"profile": {
+						"id": "4823fe00-94b1-462e-b591-4349e0ca5eca",
+						"fullName": "Juan Solis Barreto",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Juan%2BSolis",
+						"code": "202098765",
+						"phone": "987654321",
+						"email": "juan.solis@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "I"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "f9f52341-2a31-40d0-a036-a89b1ce178a1",
+					"profile": {
+						"id": "220885a5-d14f-49dd-a48e-52a73a75534b",
+						"fullName": "Mario Rodriguez Lopez",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Mario%2BRodriguez",
+						"code": "202187654",
+						"phone": "987123456",
+						"email": "mario.rodriguez@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "II"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "884a02b2-d94a-4698-88a2-673667ad066b",
+					"profile": {
+						"id": "d4699bea-25ce-4ded-8997-139b2207a142",
+						"fullName": "Carlos Mendoza Huaman",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Carlos%2BMendoza",
+						"code": "201976543",
+						"phone": "976543210",
+						"email": "carlos.mendoza@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "III"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "ce940a2f-f87e-4f9c-89cd-be3145d4d7de",
+					"profile": {
+						"id": "1292ea89-42c6-4217-a3f2-646cab305577",
+						"fullName": "Anibal Torres Quispe",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Anibal%2BTorres",
+						"code": "202265432",
+						"phone": "965432109",
+						"email": "anibal.torres@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "IV"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "bb086c9c-ebe8-46b6-a700-86fc2eba9b72",
+					"profile": {
+						"id": "9c6542dd-f2bd-4717-ac32-b58971070740",
+						"fullName": "Pedro Mamani Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Pedro%2BMamani",
+						"code": "202054321",
+						"phone": "954321098",
+						"email": "pedro.mamani@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "V"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "668bace6-4987-4525-a741-9c152b92cd27",
+					"profile": {
+						"id": "71e9778a-11f2-413c-9c4f-0f37094e41ec",
+						"fullName": "Julio Cespedes Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Julio%2BCespedes",
+						"code": "202054381",
+						"phone": "967992832",
+						"email": "julio.cespedes@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "VI"
+					}
+				}
+			}
+		]
+	},
+	{
+		"id": "25a12bfd-6f96-43eb-b1dc-99d6dfca5dec",
+		"name": "Activate FIA",
+		"date": "2024-08-12",
+		"hour": "10:00:00",
+		"location": "Auditorio Movil",
+		"period": "2024-2",
+		"eventType": {
+			"name": "Actívate"
+		},
+		"studentEvent": [
+			{
+				"assistante": true,
+				"student": {
+					"id": "775bb8dc-a2a4-4bae-b112-5758c06305b4",
+					"profile": {
+						"id": "4823fe00-94b1-462e-b591-4349e0ca5eca",
+						"fullName": "Juan Solis Barreto",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Juan%2BSolis",
+						"code": "202098765",
+						"phone": "987654321",
+						"email": "juan.solis@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "I"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "f9f52341-2a31-40d0-a036-a89b1ce178a1",
+					"profile": {
+						"id": "220885a5-d14f-49dd-a48e-52a73a75534b",
+						"fullName": "Mario Rodriguez Lopez",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Mario%2BRodriguez",
+						"code": "202187654",
+						"phone": "987123456",
+						"email": "mario.rodriguez@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "II"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "884a02b2-d94a-4698-88a2-673667ad066b",
+					"profile": {
+						"id": "d4699bea-25ce-4ded-8997-139b2207a142",
+						"fullName": "Carlos Mendoza Huaman",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Carlos%2BMendoza",
+						"code": "201976543",
+						"phone": "976543210",
+						"email": "carlos.mendoza@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "III"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "ce940a2f-f87e-4f9c-89cd-be3145d4d7de",
+					"profile": {
+						"id": "1292ea89-42c6-4217-a3f2-646cab305577",
+						"fullName": "Anibal Torres Quispe",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Anibal%2BTorres",
+						"code": "202265432",
+						"phone": "965432109",
+						"email": "anibal.torres@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "IV"
+					}
+				}
+			},
+			{
+				"assistante": false,
+				"student": {
+					"id": "bb086c9c-ebe8-46b6-a700-86fc2eba9b72",
+					"profile": {
+						"id": "9c6542dd-f2bd-4717-ac32-b58971070740",
+						"fullName": "Pedro Mamani Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Pedro%2BMamani",
+						"code": "202054321",
+						"phone": "954321098",
+						"email": "pedro.mamani@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Ingeniería de Sistemas",
+						"faculty": {
+							"name": "Ingeniería y Arquitectura"
+						}
+					},
+					"cycle": {
+						"name": "V"
+					}
+				}
+			},
+			{
+				"assistante": true,
+				"student": {
+					"id": "668bace6-4987-4525-a741-9c152b92cd27",
+					"profile": {
+						"id": "71e9778a-11f2-413c-9c4f-0f37094e41ec",
+						"fullName": "Julio Cespedes Flores",
+						"avatarUrl": "https://ui-avatars.com/api/?size=225&name=Julio%2BCespedes",
+						"code": "202054381",
+						"phone": "967992832",
+						"email": "julio.cespedes@upeu.edu.pe",
+						"role": {
+							"name": "Estudiante"
+						}
+					},
+					"carrier": {
+						"name": "Psicología",
+						"faculty": {
+							"name": "Ciencias Humanas y Educación"
+						}
+					},
+					"cycle": {
+						"name": "VI"
+					}
+				}
+			}
+		]
+	}
+]

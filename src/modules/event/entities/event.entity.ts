@@ -16,6 +16,10 @@ export class EventEntity extends BaseEntity implements Event {
 	location: string;
 	@Column()
 	period: string;
+	@Column({ nullable: true })
+	fileId: string;
+	@Column({ nullable: true })
+	fileUrl: string;
 
 	@ManyToOne(() => EventTypeEntity, (eventType) => eventType.event)
 	eventType: EventTypeEntity;
