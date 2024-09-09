@@ -9,6 +9,12 @@ export class StudentEventEntity extends BaseEntity implements StudentEvent {
 	@Column()
 	assistante: boolean;
 
+  @Column()
+	studentId: string;
+
+  @Column()
+	eventId: string;
+
 	@ManyToOne(() => StudentEntity, (student) => student.studentEvent)
 	student: StudentEntity;
 	@ManyToOne(() => EventEntity, (event) => event.studentEvent)

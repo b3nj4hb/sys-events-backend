@@ -1,1 +1,34 @@
-export class StudentEventDto {}
+import { ApiProperty } from "@nestjs/swagger";
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
+
+export class StudentEventDto {
+  @IsOptional() // Solo para actualizaciones, no es obligatorio al crear
+	@IsUUID()
+	id?: string; // ID del evento a actualizar (opcional para creación)
+
+	@ApiProperty({
+		description: 'Assistance of students in events ',
+		example: 'True or false',
+	})
+	@IsNotEmpty()
+	@IsBoolean()
+	assistante: boolean;
+
+	@ApiProperty({
+		description: 'ID of the event',
+		example: 'b1e33e06-f1d0-4a58-8cd7-36284179a60d',
+	})
+	@IsNotEmpty()
+	@IsUUID()
+	eventId: string; // ID del evento
+
+	@ApiProperty({
+		description: 'ID of the student',
+		example: 'b1e33e06-f1d0-4a58-8cd7-36284179a60d',
+	})
+	@IsNotEmpty()
+	@IsUUID()
+	studentId: string; // ID del student
+
+
+}
