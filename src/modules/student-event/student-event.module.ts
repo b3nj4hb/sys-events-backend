@@ -7,8 +7,8 @@ import { EventEntity } from '../event/entities/event.entity';
 import { StudentEntity } from '../student/entities/student.entity';
 
 @Module({
-  controllers: [StudentEventController],
-  providers: [StudentEventService],
-  imports: [TypeOrmModule.forFeature([StudentEventEntity, EventEntity, , StudentEntity])],
+	controllers: [StudentEventController],
+	providers: [StudentEventService],
+	imports: [TypeOrmModule.forFeature([StudentEventEntity, EventEntity, StudentEntity])],
 })
 export class StudentEventModule {}
