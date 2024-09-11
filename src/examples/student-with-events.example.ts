@@ -20,7 +20,7 @@ export const studentWithEventsExample = [
 		},
 		studentEvent: [
 			{
-				assistante: true,
+				assistance: true,
 				event: {
 					name: 'Activate Sistemas',
 					date: '2024-04-12',
@@ -34,7 +34,7 @@ export const studentWithEventsExample = [
 				},
 			},
 			{
-				assistante: false,
+				assistance: false,
 				event: {
 					name: 'Cultura FIA',
 					date: '2024-06-12',

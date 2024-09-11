@@ -5,24 +5,8 @@ const generateAvatarUrl = (fullName: string) => {
 
 export const seedData = {
 	roles: [{ name: 'Estudiante' }, { name: 'Profesor' }],
-	faculties: [
-		{ name: 'Ciencias Empresariales' },
-		{ name: 'Ciencias Humanas y Educación' },
-		{ name: 'Ingeniería y Arquitectura' },
-		{ name: 'Ciencias de la Salud' },
-	],
-	cycles: [
-		{ name: 'I' },
-		{ name: 'II' },
-		{ name: 'III' },
-		{ name: 'IV' },
-		{ name: 'V' },
-		{ name: 'VI' },
-		{ name: 'VII' },
-		{ name: 'VIII' },
-		{ name: 'IX' },
-		{ name: 'X' },
-	],
+	faculties: [{ name: 'Ciencias Empresariales' }, { name: 'Ciencias Humanas y Educación' }, { name: 'Ingeniería y Arquitectura' }, { name: 'Ciencias de la Salud' }],
+	cycles: [{ name: 'I' }, { name: 'II' }, { name: 'III' }, { name: 'IV' }, { name: 'V' }, { name: 'VI' }, { name: 'VII' }, { name: 'VIII' }, { name: 'IX' }, { name: 'X' }],
 	eventTypes: [{ name: 'Cultura' }, { name: 'Actívate' }],
 	carriers: [
 		{
@@ -178,7 +162,7 @@ export const seedData = {
 	studentEvents: [
 		// Juan Solis Barreto
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Activate Sistemas',
 			location: 'Canchas sintéticas de la UPeU',
 			date: '2024-04-12',
@@ -186,7 +170,7 @@ export const seedData = {
 			studentProfileCode: '202098765',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Principal',
 			date: '2024-06-12',
@@ -194,7 +178,7 @@ export const seedData = {
 			studentProfileCode: '202098765',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Activate Sistemas',
 			location: 'Lozas de la UPeU',
 			date: '2024-08-09',
@@ -202,7 +186,7 @@ export const seedData = {
 			studentProfileCode: '202098765',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-10',
@@ -210,7 +194,7 @@ export const seedData = {
 			studentProfileCode: '202098765',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Activate FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-12',
@@ -220,7 +204,7 @@ export const seedData = {
 
 		// Mario Rodriguez Lopez
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Activate Sistemas',
 			location: 'Canchas sintéticas de la UPeU',
 			date: '2024-04-12',
@@ -228,7 +212,7 @@ export const seedData = {
 			studentProfileCode: '202187654',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Principal',
 			date: '2024-06-12',
@@ -236,7 +220,7 @@ export const seedData = {
 			studentProfileCode: '202187654',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Activate Sistemas',
 			location: 'Lozas de la UPeU',
 			date: '2024-08-09',
@@ -244,7 +228,7 @@ export const seedData = {
 			studentProfileCode: '202187654',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-10',
@@ -252,7 +236,7 @@ export const seedData = {
 			studentProfileCode: '202187654',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Activate FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-12',
@@ -262,7 +246,7 @@ export const seedData = {
 
 		// Carlos Mendoza Huaman
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Activate Sistemas',
 			location: 'Canchas sintéticas de la UPeU',
 			date: '2024-04-12',
@@ -270,7 +254,7 @@ export const seedData = {
 			studentProfileCode: '201976543',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Principal',
 			date: '2024-06-12',
@@ -278,7 +262,7 @@ export const seedData = {
 			studentProfileCode: '201976543',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Activate Sistemas',
 			location: 'Lozas de la UPeU',
 			date: '2024-08-09',
@@ -286,7 +270,7 @@ export const seedData = {
 			studentProfileCode: '201976543',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-10',
@@ -294,7 +278,7 @@ export const seedData = {
 			studentProfileCode: '201976543',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Activate FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-12',
@@ -304,7 +288,7 @@ export const seedData = {
 
 		// Anibal Torres Quispe
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Activate Sistemas',
 			location: 'Canchas sintéticas de la UPeU',
 			date: '2024-04-12',
@@ -312,7 +296,7 @@ export const seedData = {
 			studentProfileCode: '202265432',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Principal',
 			date: '2024-06-12',
@@ -320,7 +304,7 @@ export const seedData = {
 			studentProfileCode: '202265432',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Activate Sistemas',
 			location: 'Lozas de la UPeU',
 			date: '2024-08-09',
@@ -328,7 +312,7 @@ export const seedData = {
 			studentProfileCode: '202265432',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-10',
@@ -336,7 +320,7 @@ export const seedData = {
 			studentProfileCode: '202265432',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Activate FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-12',
@@ -346,7 +330,7 @@ export const seedData = {
 
 		// Pedro Mamani Flores
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Activate Sistemas',
 			location: 'Canchas sintéticas de la UPeU',
 			date: '2024-04-12',
@@ -354,7 +338,7 @@ export const seedData = {
 			studentProfileCode: '202054321',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Principal',
 			date: '2024-06-12',
@@ -362,7 +346,7 @@ export const seedData = {
 			studentProfileCode: '202054321',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Activate Sistemas',
 			location: 'Lozas de la UPeU',
 			date: '2024-08-09',
@@ -370,7 +354,7 @@ export const seedData = {
 			studentProfileCode: '202054321',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-10',
@@ -378,7 +362,7 @@ export const seedData = {
 			studentProfileCode: '202054321',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Activate FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-12',
@@ -388,7 +372,7 @@ export const seedData = {
 
 		// Julio Cespedes Flores
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Activate Sistemas',
 			location: 'Canchas sintéticas de la UPeU',
 			date: '2024-04-12',
@@ -396,7 +380,7 @@ export const seedData = {
 			studentProfileCode: '202054381',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Principal',
 			date: '2024-06-12',
@@ -404,7 +388,7 @@ export const seedData = {
 			studentProfileCode: '202054381',
 		},
 		{
-			assistante: false,
+			assistance: false,
 			eventName: 'Activate Sistemas',
 			location: 'Lozas de la UPeU',
 			date: '2024-08-09',
@@ -412,7 +396,7 @@ export const seedData = {
 			studentProfileCode: '202054381',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Cultura FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-10',
@@ -420,7 +404,7 @@ export const seedData = {
 			studentProfileCode: '202054381',
 		},
 		{
-			assistante: true,
+			assistance: true,
 			eventName: 'Activate FIA',
 			location: 'Auditorio Movil',
 			date: '2024-08-12',

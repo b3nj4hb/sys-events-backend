@@ -42,7 +42,7 @@ export class StudentService {
 				'cycle.name',
 
 				// Datos del studentEvent
-				'studentEvent.assistante', // Asistencia al evento
+				'studentEvent.assistance', // Asistencia al evento
 
 				// Datos del evento
 				'event.name', // Nombre del evento

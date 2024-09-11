@@ -1,18 +1,14 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsNotEmpty, IsUUID } from 'class-validator';
 
 export class StudentEventDto {
-  @IsOptional() // Solo para actualizaciones, no es obligatorio al crear
-	@IsUUID()
-	id?: string; // ID del evento a actualizar (opcional para creación)
-
 	@ApiProperty({
 		description: 'Assistance of students in events ',
 		example: 'True or false',
 	})
 	@IsNotEmpty()
 	@IsBoolean()
-	assistante: boolean;
+	assistance: boolean;
 
 	@ApiProperty({
 		description: 'ID of the event',
@@ -29,6 +25,4 @@ export class StudentEventDto {
 	@IsNotEmpty()
 	@IsUUID()
 	studentId: string; // ID del student
-
-
 }

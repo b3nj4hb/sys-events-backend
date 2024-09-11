@@ -82,8 +82,7 @@ export class SeedService implements OnModuleInit {
 			const savedEventTypes = [];
 			for (const eventType of eventTypes) {
 				const eventTypeEntity = this.eventTypeRepository.create(eventType);
-				const savedEventType =
-					await this.eventTypeRepository.save(eventTypeEntity);
+				const savedEventType = await this.eventTypeRepository.save(eventTypeEntity);
 				savedEventTypes.push(savedEventType);
 				console.log(`Event Type saved: ${eventType.name}`);
 			}
@@ -93,13 +92,9 @@ export class SeedService implements OnModuleInit {
 			const savedCarriers = [];
 			for (const carrier of carriers) {
 				// Encuentra la facultad correspondiente para este carrier
-				const faculty = savedFaculties.find(
-					(f) => f.name === carrier.facultyName,
-				);
+				const faculty = savedFaculties.find((f) => f.name === carrier.facultyName);
 				if (!faculty) {
-					console.error(
-						`Faculty not found for carrier: ${carrier.facultyName}`,
-					);
+					console.error(`Faculty not found for carrier: ${carrier.facultyName}`);
 					continue;
 				}
 
@@ -116,13 +111,9 @@ export class SeedService implements OnModuleInit {
 			const events = seedData.events;
 			const savedEvents = [];
 			for (const event of events) {
-				const eventType = savedEventTypes.find(
-					(et) => et.name === event.eventTypeName,
-				);
+				const eventType = savedEventTypes.find((et) => et.name === event.eventTypeName);
 				if (!eventType) {
-					console.error(
-						`Event Type not found for event: ${event.eventTypeName}`,
-					);
+					console.error(`Event Type not found for event: ${event.eventTypeName}`);
 					continue;
 				}
 
@@ -159,24 +150,15 @@ export class SeedService implements OnModuleInit {
 			const savedStudents = [];
 			for (const studentData of students) {
 				// Filtra perfiles con rol "Estudiante"
-				const profile = savedProfiles.find(
-					(p) =>
-						p.code === studentData.profileCode && p.role.name === 'Estudiante',
-				);
+				const profile = savedProfiles.find((p) => p.code === studentData.profileCode && p.role.name === 'Estudiante');
 				if (!profile) {
-					console.error(
-						`Profile not found for code: ${studentData.profileCode}`,
-					);
+					console.error(`Profile not found for code: ${studentData.profileCode}`);
 					continue;
 				}
 
-				const carrier = savedCarriers.find(
-					(c) => c.name === studentData.carrierName,
-				);
+				const carrier = savedCarriers.find((c) => c.name === studentData.carrierName);
 				if (!carrier) {
-					console.error(
-						`Carrier not found for name: ${studentData.carrierName}`,
-					);
+					console.error(`Carrier not found for name: ${studentData.carrierName}`);
 					continue;
 				}
 
@@ -193,47 +175,33 @@ export class SeedService implements OnModuleInit {
 				});
 				const savedStudent = await this.studentRepository.save(studentEntity);
 				savedStudents.push(savedStudent);
-				console.log(
-					`Student saved with profile code: ${studentData.profileCode}`,
-				);
+				console.log(`Student saved with profile code: ${studentData.profileCode}`);
 			}
 
 			// Inserta student events
 			const studentEvents = seedData.studentEvents;
 			for (const studentEventData of studentEvents) {
 				const event = savedEvents.find(
-					(e) =>
-						e.name === studentEventData.eventName &&
-						e.date === studentEventData.date &&
-						e.hour === studentEventData.hour &&
-						e.location === studentEventData.location,
+					(e) => e.name === studentEventData.eventName && e.date === studentEventData.date && e.hour === studentEventData.hour && e.location === studentEventData.location,
 				);
 				if (!event) {
-					console.error(
-						`Event not found for data: ${JSON.stringify(studentEventData)}`,
-					);
+					console.error(`Event not found for data: ${JSON.stringify(studentEventData)}`);
 					continue;
 				}
 
-				const student = savedStudents.find(
-					(s) => s.profile.code === studentEventData.studentProfileCode,
-				);
+				const student = savedStudents.find((s) => s.profile.code === studentEventData.studentProfileCode);
 				if (!student) {
-					console.error(
-						`Student not found for profile code: ${studentEventData.studentProfileCode}`,
-					);
+					console.error(`Student not found for profile code: ${studentEventData.studentProfileCode}`);
 					continue;
 				}
 
 				const studentEventEntity = this.studentEventRepository.create({
-					assistante: studentEventData.assistante,
+					assistance: studentEventData.assistance,
 					student,
 					event,
 				});
 				await this.studentEventRepository.save(studentEventEntity);
-				console.log(
-					`Student Event saved for student code: ${studentEventData.studentProfileCode}`,
-				);
+				console.log(`Student Event saved for student code: ${studentEventData.studentProfileCode}`);
 			}
 
 			// agregar mas en caso necesitar

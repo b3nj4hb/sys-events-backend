@@ -6,13 +6,13 @@ import { EventEntity } from 'src/modules/event/entities/event.entity';
 
 @Entity({ name: 'studentEvent' })
 export class StudentEventEntity extends BaseEntity implements StudentEvent {
-	@Column()
-	assistante: boolean;
+	@Column({ type: 'boolean' })
+	assistance: boolean;
 
-  @Column()
+	@Column()
 	studentId: string;
 
-  @Column()
+	@Column()
 	eventId: string;
 
 	@ManyToOne(() => StudentEntity, (student) => student.studentEvent)

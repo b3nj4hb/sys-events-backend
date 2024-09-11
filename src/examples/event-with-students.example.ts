@@ -12,7 +12,7 @@ export const eventWithStudentsExample = [
 		},
 		studentEvent: [
 			{
-				assistante: true,
+				assistance: true,
 				student: {
 					id: 'ffe8d68e-ae86-4de6-a638-71005c0e3277',
 					profile: {
@@ -38,7 +38,7 @@ export const eventWithStudentsExample = [
 				},
 			},
 			{
-				assistante: false,
+				assistance: false,
 				student: {
 					id: 'e385209b-1ff5-45a3-ae47-02969fbc91a0',
 					profile: {

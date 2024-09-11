@@ -41,7 +41,7 @@ export class EventService {
 				'event.fileUrl',
 
 				// Datos del studentEvent
-				'studentEvent.assistante',
+				'studentEvent.assistance',
 
 				// Datos del estudiante y sus subclases
 				'student.id',
