@@ -6,6 +6,7 @@ import { StudentEventDto } from '../dto/student-event.dto';
 import { StudentEntity } from 'src/modules/student/entities/student.entity';
 import { EventEntity } from 'src/modules/event/entities/event.entity';
 import { StudentEventUpdateDto } from '../dto/student-event-update.dto';
+import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
 
 @Injectable()
 export class StudentEventService {
@@ -18,19 +19,36 @@ export class StudentEventService {
 
 		@InjectRepository(EventEntity)
 		private readonly eventRepository: Repository<EventEntity>,
+
+		@InjectRepository(ProfileEntity)
+		private readonly profileRepository: Repository<ProfileEntity>,
 	) {}
 
 	async createStudentEvent(createStudentEventDto: StudentEventDto): Promise<StudentEventEntity> {
-		const { assistance, studentId, eventId } = createStudentEventDto;
+		const { assistance, studentCode, eventId } = createStudentEventDto;
 
-		// Buscar el estudiante por su ID
-		const student = await this.studentRepository.findOne({
-			where: { id: studentId },
+		// Buscar el perfil del estudiante por su código
+		const profile = await this.profileRepository.findOne({
+			where: { code: studentCode },
+			relations: ['student'],
 		});
 
-		if (!student) {
-			throw new NotFoundException(`Student with ID "${studentId}" not found`);
+		if (!profile) {
+			throw new NotFoundException(`Student with code "${studentCode}" not found`);
 		}
+
+		if (!profile.student) {
+			throw new NotFoundException(`Student associated with profile code "${studentCode}" not found`);
+		}
+
+		// // Buscar al estudiante usando el perfil encontrado
+		// const student = await this.studentRepository.findOne({
+		// 	where: { profile: profile }, // Relación entre Student y Profile
+		// });
+
+		// if (!student) {
+		// 	throw new NotFoundException(`Student with profile code "${studentCode}" not found`);
+		// }
 
 		// Buscar el evento por su ID
 		const event = await this.eventRepository.findOne({
@@ -45,7 +63,7 @@ export class StudentEventService {
 		const studentEvent = this.studentEventRepository.create({
 			assistance,
 			event,
-			student,
+			student: profile.student,
 		});
 
 		// Guardar el StudentEvent en la base de datos

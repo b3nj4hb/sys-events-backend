@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsUUID } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class StudentEventDto {
 	@ApiProperty({
@@ -23,6 +23,6 @@ export class StudentEventDto {
 		example: 'b1e33e06-f1d0-4a58-8cd7-36284179a60d',
 	})
 	@IsNotEmpty()
-	@IsUUID()
-	studentId: string; // ID del student
+	@IsString()
+	studentCode: string; // Código del estudiante
 }
