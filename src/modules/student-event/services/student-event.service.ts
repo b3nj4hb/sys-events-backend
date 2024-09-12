@@ -41,15 +41,6 @@ export class StudentEventService {
 			throw new NotFoundException(`Student associated with profile code "${studentCode}" not found`);
 		}
 
-		// // Buscar al estudiante usando el perfil encontrado
-		// const student = await this.studentRepository.findOne({
-		// 	where: { profile: profile }, // Relación entre Student y Profile
-		// });
-
-		// if (!student) {
-		// 	throw new NotFoundException(`Student with profile code "${studentCode}" not found`);
-		// }
-
 		// Buscar el evento por su ID
 		const event = await this.eventRepository.findOne({
 			where: { id: eventId },
@@ -72,7 +63,7 @@ export class StudentEventService {
 
 	// Método para actualizar un student - evento existente
 	async updateStudentEvent(updateStudentEventDto: StudentEventUpdateDto): Promise<StudentEventEntity> {
-		const { id, assistance, studentId, eventId } = updateStudentEventDto;
+		const { id, assistance, studentCode, eventId } = updateStudentEventDto;
 
 		// Buscar el StudentEvent por su ID
 		const studentEvent = await this.studentEventRepository.findOne({ where: { id } });
@@ -88,19 +79,24 @@ export class StudentEventService {
 			throw new NotFoundException(`Event with ID "${eventId}" not found`);
 		}
 
-		// Buscar el studiante por su ID
-		const student = await this.studentRepository.findOne({
-			where: { id: studentId },
+		// Buscar el perfil del estudiante por su código
+		const profile = await this.profileRepository.findOne({
+			where: { code: studentCode },
+			relations: ['student'],
 		});
 
-		if (!student) {
-			throw new NotFoundException(`Event type with ID "${studentId}" not found`);
+		if (!profile) {
+			throw new NotFoundException(`Profile with code "${studentCode}" not found`);
+		}
+
+		if (!profile.student) {
+			throw new NotFoundException(`Student associated with profile code "${studentCode}" not found`);
 		}
 
 		// Actualizar los campos del StudentEvent
 		studentEvent.assistance = assistance;
-		if (student) studentEvent.studentId = studentId;
-		if (event) studentEvent.eventId = eventId;
+		if (profile.student) studentEvent.student = profile.student;
+		if (event) studentEvent.event = event;
 
 		// Guardar los cambios en la base de datos
 		return this.studentEventRepository.save(studentEvent);
