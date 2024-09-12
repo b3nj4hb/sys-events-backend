@@ -4,7 +4,7 @@ import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 export class StudentEventDto {
 	@ApiProperty({
 		description: 'Assistance of students in events ',
-		example: 'True or false',
+		example: true,
 	})
 	@IsNotEmpty()
 	@IsBoolean()
@@ -19,8 +19,8 @@ export class StudentEventDto {
 	eventId: string; // ID del evento
 
 	@ApiProperty({
-		description: 'ID of the student',
-		example: 'b1e33e06-f1d0-4a58-8cd7-36284179a60d',
+		description: 'Code of the student',
+		example: '202010352',
 	})
 	@IsNotEmpty()
 	@IsString()
