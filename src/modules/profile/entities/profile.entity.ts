@@ -1,6 +1,6 @@
 import { BaseEntity } from 'src/config/base.entity';
 import { Profile } from '../interfaces/profile.interface';
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { RoleEntity } from './role.entity';
 import { StudentEntity } from 'src/modules/student/entities/student.entity';
 
@@ -19,8 +19,8 @@ export class ProfileEntity extends BaseEntity implements Profile {
 	@Column()
 	password: string;
 
+	@OneToOne(() => StudentEntity, (student) => student.profile)
+	student: StudentEntity;
 	@ManyToOne(() => RoleEntity, (role) => role.profile)
 	role: RoleEntity;
-	@OneToMany(() => StudentEntity, (student) => student.profile)
-	student: StudentEntity[];
 }

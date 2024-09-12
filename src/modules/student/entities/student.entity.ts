@@ -1,5 +1,5 @@
 import { BaseEntity } from 'src/config/base.entity';
-import { Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
 import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 import { CycleEntity } from './cycle.entity';
@@ -7,7 +7,8 @@ import { StudentEventEntity } from 'src/modules/student-event/entities/student-e
 
 @Entity({ name: 'student' })
 export class StudentEntity extends BaseEntity {
-	@ManyToOne(() => ProfileEntity, (profile) => profile.student)
+	@OneToOne(() => ProfileEntity, (profile) => profile.student)
+	@JoinColumn()
 	profile: ProfileEntity;
 	@ManyToOne(() => CarrierEntity, (carrier) => carrier.student)
 	carrier: CarrierEntity;
