@@ -8,7 +8,9 @@ import { EventTypeEntity } from '../entities/event-type.entity';
 import { eventTypesExample } from 'src/examples/event-types.example';
 import { eventWithStudentsExample } from 'src/examples/event-with-students.example';
 import { EventUpdateDto } from '../dto/event-update.dto';
+import { eventsByProfileCode } from 'src/examples/events-by-profile-code';
 
+@ApiTags('Event')
 @Controller('event')
 export class EventController {
 	constructor(private readonly eventService: EventService) {}
@@ -87,5 +89,19 @@ export class EventController {
 	})
 	async getEventTypes(): Promise<EventTypeEntity[]> {
 		return this.eventService.getEventTypes();
+	}
+
+	@Get('events-by-profile-code/:profileCode')
+	@ApiTags('Event')
+	@ApiOperation({ summary: "Retrieve student's events by profile code" })
+	@ApiResponse({
+		status: 200,
+		description: "Successfully retrieved the list of student's events by profile code",
+		example: {
+			'application/json': eventsByProfileCode,
+		},
+	})
+	async getStudentEventsByProfileCode(@Param('profileCode') profileCode: string) {
+		return this.eventService.getStudentEventsByProfileCode(profileCode);
 	}
 }

@@ -7,6 +7,7 @@ import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { R2Client } from 'src/config/cloudflare-r2.config';
 import { EventDto } from '../dto/event.dto';
 import { EventUpdateDto } from '../dto/event-update.dto';
+import { StudentEntity } from 'src/modules/student/entities/student.entity';
 
 @Injectable()
 export class EventService {
@@ -16,6 +17,9 @@ export class EventService {
 
 		@InjectRepository(EventTypeEntity)
 		private readonly eventTypeRepository: Repository<EventTypeEntity>,
+
+		@InjectRepository(StudentEntity)
+		private readonly studentRepository: Repository<StudentEntity>,
 	) {}
 
 	async getEventsWithStudents(): Promise<any> {
@@ -229,5 +233,22 @@ export class EventService {
 
 	async getEventTypes(): Promise<EventTypeEntity[]> {
 		return this.eventTypeRepository.find();
+	}
+
+	async getStudentEventsByProfileCode(profileCode: string): Promise<any> {
+		const student = await this.studentRepository
+			.createQueryBuilder('student')
+			.leftJoinAndSelect('student.profile', 'profile')
+			.leftJoinAndSelect('student.studentEvent', 'studentEvent')
+			.leftJoinAndSelect('studentEvent.event', 'event')
+			.leftJoinAndSelect('event.eventType', 'eventType')
+			.where('profile.code = :code', { code: profileCode })
+			.getOne();
+
+		if (!student) {
+			throw new NotFoundException('Student not found');
+		}
+
+		return student.studentEvent; // Retornamos solo los eventos
 	}
 }
