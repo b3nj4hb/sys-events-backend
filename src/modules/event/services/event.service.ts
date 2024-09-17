@@ -23,7 +23,7 @@ export class EventService {
 	) {}
 
 	async getEventsWithStudents(): Promise<any> {
-		return this.eventRepository
+		const eventsWithStudents = await this.eventRepository
 			.createQueryBuilder('event')
 			.leftJoinAndSelect('event.eventType', 'eventType') // Join con la tabla eventType
 			.leftJoinAndSelect('event.studentEvent', 'studentEvent') // Join con la tabla studentEvent
@@ -33,40 +33,14 @@ export class EventService {
 			.leftJoinAndSelect('student.carrier', 'carrier') // Join con la tabla carrier a través de student
 			.leftJoinAndSelect('carrier.faculty', 'faculty') // Join con la tabla faculty a través de carrier
 			.leftJoinAndSelect('student.cycle', 'cycle') // Join con la tabla cycle a través de student
-			.select([
-				// Datos del evento
-				'event.id',
-				'event.name',
-				'event.date',
-				'event.hour',
-				'event.location',
-				'event.period',
-				'eventType.name',
-				'event.fileUrl',
-
-				// Datos del studentEvent
-				'studentEvent.assistance',
-
-				// Datos del estudiante y sus subclases
-				'student.id',
-				'profile.id',
-				'profile.fullName',
-				'profile.avatarUrl',
-				'profile.code',
-				'profile.phone',
-				'profile.email',
-
-				// Datos del rol asociado al perfil
-				'role.name',
-
-				// Datos de la carrera y facultad asociada
-				'carrier.name',
-				'faculty.name',
-
-				// Datos del ciclo asociado
-				'cycle.name',
-			])
 			.getMany();
+
+		return eventsWithStudents.map((event: any) => {
+			event.studentEvent.forEach((studentEvent: any) => {
+				studentEvent.student.profile.password = undefined;
+			});
+			return event;
+		});
 	}
 
 	async createEvent(createEventDto: EventDto): Promise<EventEntity> {
