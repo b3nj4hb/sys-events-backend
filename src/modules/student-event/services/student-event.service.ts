@@ -8,6 +8,9 @@ import { EventEntity } from 'src/modules/event/entities/event.entity';
 import { StudentEventUpdateDto } from '../dto/student-event-update.dto';
 import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
 import { JustificationEntity } from '../entities/justification.entity';
+import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
+import { R2Client } from 'src/config/cloudflare-r2.config';
+import { JustificationDto } from '../dto/justificacion.dto';
 
 @Injectable()
 export class StudentEventService {
@@ -120,16 +123,18 @@ export class StudentEventService {
 		await this.studentEventRepository.remove(studentEvent);
 	}
 
-	async createJustification(idStudentEvent: string): Promise<JustificationEntity> {
+	async createJustification(createJustificationDto: JustificationDto): Promise<JustificationEntity> {
+		const { studentEventId, file } = createJustificationDto;
+
 		// Buscar el studentEvent por su ID
 		const studentEvent = await this.studentEventRepository
 			.createQueryBuilder('studentEvent')
 			.leftJoinAndSelect('studentEvent.justifications', 'justifications')
-			.where('studentEvent.id = :id', { id: idStudentEvent })
+			.where('studentEvent.id = :id', { id: studentEventId })
 			.getOne();
 
 		if (!studentEvent) {
-			throw new NotFoundException(`StudentEvent with ID "${idStudentEvent}" not found`);
+			throw new NotFoundException(`StudentEvent with ID "${studentEventId}" not found`);
 		}
 
 		// Validar si ya tiene una justificación pendiente o aprobada
@@ -141,9 +146,30 @@ export class StudentEventService {
 
 		// Validar si puede mandar una justificación
 		if (!studentEvent.assistance || studentEvent.justifications.some((justification) => justification.status === 'rejected')) {
+			// Inicializar fileId y fileUrl
+			let fileId: string | undefined;
+			let fileUrl: string | undefined;
+
+			// Subir el archivo a R2 si está presente en la solicitud
+			if (file) {
+				fileId = `${Date.now()}-${file.originalname}`; // Generar un ID único para el archivo
+				fileUrl = `${process.env.DEV_BUCKET_URL}/${fileId}`;
+
+				const command = new PutObjectCommand({
+					Bucket: process.env.BUCKET, // El bucket de R2
+					Key: fileId, // El nombre del archivo
+					Body: file.buffer, // El contenido del archivo
+					ContentType: file.mimetype, // Tipo MIME del archivo
+				});
+
+				await R2Client.send(command); // Ejecutar la subida del archivo
+			}
+
 			const justification = this.justificationRepository.create({
 				studentEvent: studentEvent,
 				status: 'pending', // Estado inicial de la justificación
+				fileId, // ID del archivo en el bucket
+				fileUrl, // URL para acceder al archivo
 			});
 
 			return this.justificationRepository.save(justification);

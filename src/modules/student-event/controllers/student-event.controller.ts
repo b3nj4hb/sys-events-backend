@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { StudentEventDto } from '../dto/student-event.dto';
 import { StudentEventEntity } from '../entities/student-event.entity';
 import { StudentEventService } from '../services/student-event.service';
 import { StudentEventUpdateDto } from '../dto/student-event-update.dto';
 import { JustificationEntity } from '../entities/justification.entity';
+import { JustificationDto } from '../dto/justificacion.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('student-event')
 export class StudentEventController {
@@ -46,15 +48,10 @@ export class StudentEventController {
 	}
 
 	@ApiTags('Justification')
-	@Post('justification/:id')
-	@ApiParam({
-		name: 'id',
-		type: 'string',
-		description: 'The ID of the attendance record for which to create a justification',
-		example: '7b4ffd79-0c1d-4670-8e47-b21168e3187b',
-	})
+	@Post('justification')
+	@UseInterceptors(FileInterceptor('file'))
 	@ApiOperation({ summary: "Create a justification for a student's attendance record" })
-	async createJustification(@Param('id') idStudentEvent: string): Promise<JustificationEntity> {
-		return this.studentEventService.createJustification(idStudentEvent);
+	async createJustification(@Body() justificationDto: JustificationDto, @UploadedFile() file: Express.Multer.File): Promise<JustificationEntity> {
+		return this.studentEventService.createJustification({ ...justificationDto, file });
 	}
 }
