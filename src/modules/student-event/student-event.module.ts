@@ -6,10 +6,11 @@ import { StudentEventEntity } from './entities/student-event.entity';
 import { EventEntity } from '../event/entities/event.entity';
 import { StudentEntity } from '../student/entities/student.entity';
 import { ProfileEntity } from '../profile/entities/profile.entity';
+import { JustificationEntity } from './entities/justification.entity';
 
 @Module({
 	controllers: [StudentEventController],
 	providers: [StudentEventService],
-	imports: [TypeOrmModule.forFeature([StudentEventEntity, EventEntity, StudentEntity, ProfileEntity])],
+	imports: [TypeOrmModule.forFeature([StudentEventEntity, EventEntity, StudentEntity, ProfileEntity, JustificationEntity])],
 })
 export class StudentEventModule {}

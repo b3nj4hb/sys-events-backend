@@ -7,6 +7,7 @@ import { StudentEntity } from 'src/modules/student/entities/student.entity';
 import { EventEntity } from 'src/modules/event/entities/event.entity';
 import { StudentEventUpdateDto } from '../dto/student-event-update.dto';
 import { ProfileEntity } from 'src/modules/profile/entities/profile.entity';
+import { JustificationEntity } from '../entities/justification.entity';
 
 @Injectable()
 export class StudentEventService {
@@ -22,6 +23,9 @@ export class StudentEventService {
 
 		@InjectRepository(ProfileEntity)
 		private readonly profileRepository: Repository<ProfileEntity>,
+
+		@InjectRepository(JustificationEntity)
+		private readonly justificationRepository: Repository<JustificationEntity>,
 	) {}
 
 	async createStudentEvent(createStudentEventDto: StudentEventDto): Promise<StudentEventEntity> {
@@ -114,5 +118,37 @@ export class StudentEventService {
 
 		// Eliminar el StudentEvent de la base de datos
 		await this.studentEventRepository.remove(studentEvent);
+	}
+
+	async createJustification(idStudentEvent: string): Promise<JustificationEntity> {
+		// Buscar el studentEvent por su ID
+		const studentEvent = await this.studentEventRepository
+			.createQueryBuilder('studentEvent')
+			.leftJoinAndSelect('studentEvent.justifications', 'justifications')
+			.where('studentEvent.id = :id', { id: idStudentEvent })
+			.getOne();
+
+		if (!studentEvent) {
+			throw new NotFoundException(`StudentEvent with ID "${idStudentEvent}" not found`);
+		}
+
+		// Validar si ya tiene una justificación pendiente o aprobada
+		const hasPendingOrApprovedJustification = studentEvent.justifications.some((justification) => justification.status === 'pending' || justification.status === 'approved');
+
+		if (hasPendingOrApprovedJustification) {
+			throw new NotFoundException('You already have a pending or approved justification');
+		}
+
+		// Validar si puede mandar una justificación
+		if (!studentEvent.assistance || studentEvent.justifications.some((justification) => justification.status === 'rejected')) {
+			const justification = this.justificationRepository.create({
+				studentEvent: studentEvent,
+				status: 'pending', // Estado inicial de la justificación
+			});
+
+			return this.justificationRepository.save(justification);
+		} else {
+			throw new Error('You cannot send a justification');
+		}
 	}
 }
