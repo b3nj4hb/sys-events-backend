@@ -11,6 +11,7 @@ import { JustificationEntity } from '../entities/justification.entity';
 import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import { R2Client } from 'src/config/cloudflare-r2.config';
 import { JustificationDto } from '../dto/justificacion.dto';
+import { JustificationUpdateDto } from '../dto/justification-update.dto';
 
 @Injectable()
 export class StudentEventService {
@@ -174,7 +175,43 @@ export class StudentEventService {
 
 			return this.justificationRepository.save(justification);
 		} else {
-			throw new Error('You cannot send a justification');
+			throw new NotFoundException('The event does not require a justification');
 		}
+	}
+
+	async updateJustificationStatus(updateJustificationDto: JustificationUpdateDto): Promise<JustificationEntity> {
+		const { id, status } = updateJustificationDto;
+
+		// Buscar la justificación por su ID
+		const justification = await this.justificationRepository.findOne({
+			where: { id },
+			relations: ['studentEvent'],
+		});
+
+		if (!justification) {
+			throw new NotFoundException(`Justification with ID "${id}" not found`);
+		}
+
+		// Validar si la justificación ya ha sido aprobada
+		if (justification.status === 'approved') {
+			throw new NotFoundException('Justification has already been approved and cannot be updated.');
+		}
+
+		// Validar el estado recibido
+		if (status !== 'approved' && status !== 'rejected') {
+			throw new NotFoundException('Invalid status. Only "approved" or "rejected" are allowed.');
+		}
+
+		// Actualizar el estado de la justificación
+		justification.status = status;
+
+		// Si el estado es "approved", actualizar la asistencia del evento del estudiante
+		if (status === 'approved') {
+			justification.studentEvent.assistance = true;
+			await this.studentEventRepository.save(justification.studentEvent);
+		}
+
+		// Guardar los cambios en la justificación
+		return this.justificationRepository.save(justification);
 	}
 }

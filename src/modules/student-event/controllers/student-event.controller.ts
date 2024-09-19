@@ -7,6 +7,7 @@ import { StudentEventUpdateDto } from '../dto/student-event-update.dto';
 import { JustificationEntity } from '../entities/justification.entity';
 import { JustificationDto } from '../dto/justificacion.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { JustificationUpdateDto } from '../dto/justification-update.dto';
 
 @Controller('student-event')
 export class StudentEventController {
@@ -53,5 +54,12 @@ export class StudentEventController {
 	@ApiOperation({ summary: "Create a justification for a student's attendance record" })
 	async createJustification(@Body() justificationDto: JustificationDto, @UploadedFile() file: Express.Multer.File): Promise<JustificationEntity> {
 		return this.studentEventService.createJustification({ ...justificationDto, file });
+	}
+
+	@ApiTags('Justification')
+	@Put('justification/status')
+	@ApiOperation({ summary: "Update the status of a student's justification" })
+	async updateJustificationStatus(@Body() justificationUpdateDto: JustificationUpdateDto): Promise<JustificationEntity> {
+		return this.studentEventService.updateJustificationStatus(justificationUpdateDto);
 	}
 }
