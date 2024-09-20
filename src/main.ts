@@ -6,6 +6,7 @@ import { SwaggerConfig } from './config/swagger.config';
 import { ValidationPipe } from '@nestjs/common';
 import { join } from 'path';
 import * as express from 'express';
+import { hostname } from 'os';
 // import { testConnection } from './config/connection.test';
 
 async function bootstrap() {
@@ -23,6 +24,6 @@ async function bootstrap() {
 	app.useGlobalPipes(new ValidationPipe());
 
 	// await testConnection();
-	await app.listen(3000);
+	await app.listen(process.env.PORT, '0.0.0.0');
 }
 bootstrap();
