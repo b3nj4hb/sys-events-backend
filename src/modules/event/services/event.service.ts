@@ -33,6 +33,7 @@ export class EventService {
 			.leftJoinAndSelect('student.carrier', 'carrier') // Join con la tabla carrier a través de student
 			.leftJoinAndSelect('carrier.faculty', 'faculty') // Join con la tabla faculty a través de carrier
 			.leftJoinAndSelect('student.cycle', 'cycle') // Join con la tabla cycle a través de student
+			.leftJoinAndSelect('studentEvent.justifications', 'justifications') // Join con la tabla justifications a través de studentEvent
 			.getMany();
 
 		return eventsWithStudents.map((event: any) => {
@@ -216,6 +217,7 @@ export class EventService {
 			.leftJoinAndSelect('student.studentEvent', 'studentEvent')
 			.leftJoinAndSelect('studentEvent.event', 'event')
 			.leftJoinAndSelect('event.eventType', 'eventType')
+			.leftJoinAndSelect('studentEvent.justifications', 'justifications') // Join con la tabla justifications
 			.where('profile.code = :code', { code: profileCode })
 			.getOne();
 
