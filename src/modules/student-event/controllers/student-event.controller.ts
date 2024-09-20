@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Put, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { StudentEventDto } from '../dto/student-event.dto';
 import { StudentEventEntity } from '../entities/student-event.entity';
@@ -8,11 +8,13 @@ import { JustificationEntity } from '../entities/justification.entity';
 import { JustificationDto } from '../dto/justificacion.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JustificationUpdateDto } from '../dto/justification-update.dto';
+import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 
 @Controller('student-event')
 export class StudentEventController {
 	constructor(private readonly studentEventService: StudentEventService) {}
 
+	@UseGuards(JwtAuthGuard)
 	@ApiTags('Student Event')
 	@Post('create')
 	@ApiOperation({ summary: "Register a student's attendance for an event", description: 'Update the attendance details for a student at a specific event.' })
@@ -21,6 +23,7 @@ export class StudentEventController {
 		return this.studentEventService.createStudentEvent({ ...createStudentEventDto });
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@ApiTags('Student Event')
 	@Put(':id')
 	@ApiParam({
@@ -35,6 +38,7 @@ export class StudentEventController {
 		return this.studentEventService.updateStudentEvent({ ...updateStudentEventDto, id });
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@ApiTags('Student Event')
 	@Delete(':id')
 	@ApiParam({
@@ -48,6 +52,7 @@ export class StudentEventController {
 		return this.studentEventService.deleteStudentEvent(studentEventId);
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@ApiTags('Justification')
 	@Post('justification')
 	@UseInterceptors(FileInterceptor('file'))
@@ -56,6 +61,7 @@ export class StudentEventController {
 		return this.studentEventService.createJustification({ ...justificationDto, file });
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@ApiTags('Justification')
 	@Put('justification/status')
 	@ApiOperation({ summary: "Update the status of a student's justification" })

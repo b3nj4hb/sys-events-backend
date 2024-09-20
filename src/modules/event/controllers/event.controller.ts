@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Body, UseInterceptors, UploadedFile, Delete, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, UseInterceptors, UploadedFile, Delete, Param, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { EventService } from '../services/event.service';
 import { EventEntity } from '../entities/event.entity';
@@ -9,12 +9,14 @@ import { eventTypesExample } from 'src/examples/event-types.example';
 import { eventWithStudentsExample } from 'src/examples/event-with-students.example';
 import { EventUpdateDto } from '../dto/event-update.dto';
 import { eventsByProfileCode } from 'src/examples/events-by-profile-code';
+import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 
 @ApiTags('Event')
 @Controller('event')
 export class EventController {
 	constructor(private readonly eventService: EventService) {}
 
+	@UseGuards(JwtAuthGuard)
 	@Get('with-students')
 	@ApiTags('Event')
 	@ApiOperation({ summary: "Retrieve events with the student's attendance status" })
@@ -29,6 +31,7 @@ export class EventController {
 		return this.eventService.getEventsWithStudents();
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Post('create-event')
 	@ApiTags('Event')
 	@UseInterceptors(FileInterceptor('file'))
@@ -37,6 +40,7 @@ export class EventController {
 		return this.eventService.createEvent({ ...createEventDto, file });
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Put(':id')
 	@ApiTags('Event')
 	@UseInterceptors(FileInterceptor('file'))
@@ -51,6 +55,7 @@ export class EventController {
 		return this.eventService.updateEvent({ ...updateEventDto, id, file });
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Delete('file/:id')
 	@ApiTags('Event File')
 	@ApiParam({
@@ -64,6 +69,7 @@ export class EventController {
 		return this.eventService.deleteFile(eventId);
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Delete(':id')
 	@ApiTags('Event')
 	@ApiParam({
@@ -77,6 +83,7 @@ export class EventController {
 		return this.eventService.deleteEvent(eventId);
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Get('types')
 	@ApiTags('Event Type')
 	@ApiOperation({ summary: 'Get all event types' })
@@ -91,6 +98,7 @@ export class EventController {
 		return this.eventService.getEventTypes();
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Get('events-by-profile-code/:profileCode')
 	@ApiTags('Event')
 	@ApiOperation({ summary: "Retrieve student's events by profile code" })

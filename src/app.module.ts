@@ -9,6 +9,7 @@ import { EventModule } from './modules/event/event.module';
 import { StudentEventModule } from './modules/student-event/student-event.module';
 import { CarrierModule } from './modules/carrier/carrier.module';
 import { SeedModule } from './seed/seed.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
 	imports: [
@@ -19,6 +20,7 @@ import { SeedModule } from './seed/seed.module';
 		StudentEventModule,
 		CarrierModule,
 		SeedModule,
+		AuthModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
