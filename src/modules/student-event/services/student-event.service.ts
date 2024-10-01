@@ -125,7 +125,7 @@ export class StudentEventService {
 	}
 
 	async createJustification(createJustificationDto: JustificationDto): Promise<JustificationEntity> {
-		const { studentEventId, file } = createJustificationDto;
+		const { studentEventId, file, reason } = createJustificationDto;
 
 		// Buscar el studentEvent por su ID
 		const studentEvent = await this.studentEventRepository
@@ -171,6 +171,7 @@ export class StudentEventService {
 				status: 'pending', // Estado inicial de la justificación
 				fileId, // ID del archivo en el bucket
 				fileUrl, // URL para acceder al archivo
+				reason, // Razón de la justificación
 			});
 
 			return this.justificationRepository.save(justification);

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsUUID, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsUUID, IsOptional, IsString } from 'class-validator';
 import { Express } from 'express';
 
 export class JustificationDto {
@@ -19,4 +19,13 @@ export class JustificationDto {
 	})
 	@IsOptional()
 	file?: Express.Multer.File;
+
+	@ApiProperty({
+		description: 'Reason for the justification',
+		example: 'Medical appointment',
+		required: false,
+	})
+	@IsOptional()
+	@IsString()
+	reason?: string;
 }

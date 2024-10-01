@@ -12,6 +12,8 @@ export class JustificationEntity extends BaseEntity {
 	fileId: string;
 	@Column({ nullable: true })
 	fileUrl: string;
+	@Column({ type: 'text', nullable: true })
+	reason: string;
 
 	@ManyToOne(() => StudentEventEntity, (studentEvent) => studentEvent.justifications)
 	studentEvent: StudentEventEntity;
