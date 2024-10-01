@@ -22,26 +22,13 @@ export class EventService {
 		private readonly studentRepository: Repository<StudentEntity>,
 	) {}
 
-	async getEventsWithStudents(): Promise<any> {
-		const eventsWithStudents = await this.eventRepository
+	async getEvents(): Promise<any> {
+		const events = await this.eventRepository
 			.createQueryBuilder('event')
 			.leftJoinAndSelect('event.eventType', 'eventType') // Join con la tabla eventType
-			.leftJoinAndSelect('event.studentEvent', 'studentEvent') // Join con la tabla studentEvent
-			.leftJoinAndSelect('studentEvent.student', 'student') // Join con la tabla student a través de studentEvent
-			.leftJoinAndSelect('student.profile', 'profile') // Join con la tabla profile a través de student
-			.leftJoinAndSelect('profile.role', 'role') // Join con la tabla role a través de profile
-			.leftJoinAndSelect('student.carrier', 'carrier') // Join con la tabla carrier a través de student
-			.leftJoinAndSelect('carrier.faculty', 'faculty') // Join con la tabla faculty a través de carrier
-			.leftJoinAndSelect('student.cycle', 'cycle') // Join con la tabla cycle a través de student
-			.leftJoinAndSelect('studentEvent.justifications', 'justifications') // Join con la tabla justifications a través de studentEvent
 			.getMany();
 
-		return eventsWithStudents.map((event: any) => {
-			event.studentEvent.forEach((studentEvent: any) => {
-				studentEvent.student.profile.password = undefined;
-			});
-			return event;
-		});
+		return events;
 	}
 
 	async getEventById(eventId: string): Promise<any> {

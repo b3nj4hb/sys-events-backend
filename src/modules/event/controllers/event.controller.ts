@@ -17,18 +17,18 @@ export class EventController {
 	constructor(private readonly eventService: EventService) {}
 
 	@UseGuards(JwtAuthGuard)
-	@Get('with-students')
+	@Get('')
 	@ApiTags('Event')
-	@ApiOperation({ summary: "Retrieve events with the student's attendance status" })
+	@ApiOperation({ summary: 'Retrieve events with associated event types' })
 	@ApiResponse({
 		status: 200,
-		description: "Successfully retrieved the list of events with the student's attendance status ",
+		description: 'Successfully retrieved the list of events with associated event types',
 		example: {
 			'application/json': eventWithStudentsExample,
 		},
 	})
 	async getEventsWithStudents() {
-		return this.eventService.getEventsWithStudents();
+		return this.eventService.getEvents();
 	}
 
 	@UseGuards(JwtAuthGuard)
