@@ -23,6 +23,7 @@ export const seedData = {
 			location: 'Canchas sintéticas de la UPeU',
 			period: '2024-1',
 			eventTypeName: 'Actívate',
+			carrierName: 'Ingeniería de Sistemas',
 		},
 		{
 			name: 'Cultura FIA',
@@ -31,6 +32,7 @@ export const seedData = {
 			location: 'Auditorio Principal',
 			period: '2024-1',
 			eventTypeName: 'Cultura',
+			carrierName: 'Ingeniería de Sistemas',
 		},
 		{
 			name: 'Activate Sistemas',
@@ -39,6 +41,7 @@ export const seedData = {
 			location: 'Lozas de la UPeU',
 			period: '2024-2',
 			eventTypeName: 'Actívate',
+			carrierName: 'Ingeniería de Sistemas',
 		},
 		{
 			name: 'Cultura FIA',
@@ -47,6 +50,7 @@ export const seedData = {
 			location: 'Auditorio Movil',
 			period: '2024-2',
 			eventTypeName: 'Cultura',
+			carrierName: 'Ingeniería de Sistemas',
 		},
 		{
 			name: 'Activate FIA',
@@ -55,6 +59,7 @@ export const seedData = {
 			location: 'Auditorio Movil',
 			period: '2024-2',
 			eventTypeName: 'Actívate',
+			carrierName: 'Ingeniería de Sistemas',
 		},
 	],
 	profiles: [

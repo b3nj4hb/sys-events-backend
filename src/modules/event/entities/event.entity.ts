@@ -3,6 +3,7 @@ import { Event } from '../interfaces/event.interface';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { EventTypeEntity } from './event-type.entity';
 import { StudentEventEntity } from 'src/modules/student-event/entities/student-event.entity';
+import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 
 @Entity({ name: 'event' })
 export class EventEntity extends BaseEntity implements Event {
@@ -23,6 +24,8 @@ export class EventEntity extends BaseEntity implements Event {
 
 	@ManyToOne(() => EventTypeEntity, (eventType) => eventType.event)
 	eventType: EventTypeEntity;
+	@ManyToOne(() => CarrierEntity, (carrier) => carrier.events)
+	carrier: CarrierEntity;
 	@OneToMany(() => StudentEventEntity, (studentEvent) => studentEvent.event)
 	studentEvent: StudentEventEntity[];
 }

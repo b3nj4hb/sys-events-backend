@@ -117,9 +117,16 @@ export class SeedService implements OnModuleInit {
 					continue;
 				}
 
+				const carrier = savedCarriers.find((c) => c.name === event.carrierName);
+				if (!carrier) {
+					console.error(`Carrier not found for event: ${event.carrierName}`);
+					continue;
+				}
+
 				const eventEntity = this.eventRepository.create({
 					...event,
 					eventType,
+					carrier,
 				});
 				const savedEvent = await this.eventRepository.save(eventEntity);
 				savedEvents.push(savedEvent);
