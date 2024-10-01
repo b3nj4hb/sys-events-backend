@@ -15,11 +15,11 @@ export abstract class BaseEntity {
 		name: 'updatedAt',
 	})
 	updated_at: Date;
-	@Column({
-		type: 'enum',
-		enum: STATES,
-		default: STATES.Active,
-		name: 'state',
-	})
-	state!: STATES;
+	// @Column({
+	// 	type: 'enum',
+	// 	enum: STATES,
+	// 	default: STATES.Active,
+	// 	name: 'state',
+	// })
+	// state!: STATES;
 }
