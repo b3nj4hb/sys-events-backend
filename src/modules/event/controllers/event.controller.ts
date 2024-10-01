@@ -32,6 +32,24 @@ export class EventController {
 	}
 
 	@UseGuards(JwtAuthGuard)
+	@Get(':id')
+	@ApiTags('Event')
+	@ApiParam({
+		name: 'id',
+		type: 'string',
+		description: 'The ID of the event to retrieve',
+		example: '7b4ffd79-0c1d-4670-8e47-b21168e3187b',
+	})
+	@ApiOperation({ summary: 'Get an event by ID' })
+	@ApiResponse({
+		status: 200,
+		description: 'Successfully retrieved the event',
+	})
+	async getEventById(@Param('id') eventId: string): Promise<any> {
+		return this.eventService.getEventById(eventId);
+	}
+
+	@UseGuards(JwtAuthGuard)
 	@Post('create-event')
 	@ApiTags('Event')
 	@UseInterceptors(FileInterceptor('file'))

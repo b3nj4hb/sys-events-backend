@@ -44,6 +44,32 @@ export class EventService {
 		});
 	}
 
+	async getEventById(eventId: string): Promise<any> {
+		const event = await this.eventRepository
+			.createQueryBuilder('event')
+			.leftJoinAndSelect('event.eventType', 'eventType') // Join con la tabla eventType
+			.leftJoinAndSelect('event.studentEvent', 'studentEvent') // Join con la tabla studentEvent
+			.leftJoinAndSelect('studentEvent.student', 'student') // Join con la tabla student a través de studentEvent
+			.leftJoinAndSelect('student.profile', 'profile') // Join con la tabla profile a través de student
+			.leftJoinAndSelect('profile.role', 'role') // Join con la tabla role a través de profile
+			.leftJoinAndSelect('student.carrier', 'carrier') // Join con la tabla carrier a través de student
+			.leftJoinAndSelect('carrier.faculty', 'faculty') // Join con la tabla faculty a través de carrier
+			.leftJoinAndSelect('student.cycle', 'cycle') // Join con la tabla cycle a través de student
+			.leftJoinAndSelect('studentEvent.justifications', 'justifications') // Join con la tabla justifications a través de studentEvent
+			.where('event.id = :id', { id: eventId })
+			.getOne();
+
+		if (!event) {
+			throw new NotFoundException(`Event with ID "${eventId}" not found`);
+		}
+
+		event.studentEvent.forEach((studentEvent: any) => {
+			studentEvent.student.profile.password = undefined;
+		});
+
+		return event;
+	}
+
 	async createEvent(createEventDto: EventDto): Promise<EventEntity> {
 		const { name, date, hour, location, period, eventTypeId, file } = createEventDto;
 
