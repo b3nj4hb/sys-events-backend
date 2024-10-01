@@ -1,6 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { STATES } from '../constants/states';
-import { Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 export abstract class BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
@@ -15,11 +13,4 @@ export abstract class BaseEntity {
 		name: 'updatedAt',
 	})
 	updated_at: Date;
-	// @Column({
-	// 	type: 'enum',
-	// 	enum: STATES,
-	// 	default: STATES.Active,
-	// 	name: 'state',
-	// })
-	// state!: STATES;
 }
