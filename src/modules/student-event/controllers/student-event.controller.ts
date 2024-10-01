@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Put, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { StudentEventDto } from '../dto/student-event.dto';
 import { StudentEventEntity } from '../entities/student-event.entity';
@@ -67,5 +67,19 @@ export class StudentEventController {
 	@ApiOperation({ summary: "Update the status of a student's justification" })
 	async updateJustificationStatus(@Body() justificationUpdateDto: JustificationUpdateDto): Promise<JustificationEntity> {
 		return this.studentEventService.updateJustificationStatus(justificationUpdateDto);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@ApiTags('Justification')
+	@Get(':studentEventId')
+	@ApiParam({
+		name: 'studentEventId',
+		type: 'string',
+		description: 'The ID of the student event to retrieve justifications for',
+		example: '7b4ffd79-0c1d-4670-8e47-b21168e3187b',
+	})
+	@ApiOperation({ summary: 'Get justifications by student event ID' })
+	async getJustificationsByStudentEventId(@Param('studentEventId') studentEventId: string): Promise<JustificationEntity[]> {
+		return this.studentEventService.getJustificationsByStudentEventId(studentEventId);
 	}
 }

@@ -221,4 +221,19 @@ export class StudentEventService {
 		// Guardar los cambios en la justificación
 		return this.justificationRepository.save(justification);
 	}
+
+	async getJustificationsByStudentEventId(studentEventId: string): Promise<JustificationEntity[]> {
+		// Buscar el StudentEvent por su ID
+		const studentEvent = await this.studentEventRepository.findOne({
+			where: { id: studentEventId },
+			relations: ['justifications'],
+		});
+
+		if (!studentEvent) {
+			throw new NotFoundException(`StudentEvent with ID "${studentEventId}" not found`);
+		}
+
+		// Listar los elementos de la relación con JustificationEntity
+		return studentEvent.justifications;
+	}
 }
