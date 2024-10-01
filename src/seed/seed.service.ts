@@ -186,30 +186,30 @@ export class SeedService implements OnModuleInit {
 			}
 
 			// Inserta student events
-			// const studentEvents = seedData.studentEvents;
-			// for (const studentEventData of studentEvents) {
-			// 	const event = savedEvents.find(
-			// 		(e) => e.name === studentEventData.eventName && e.date === studentEventData.date && e.hour === studentEventData.hour && e.location === studentEventData.location,
-			// 	);
-			// 	if (!event) {
-			// 		console.error(`Event not found for data: ${JSON.stringify(studentEventData)}`);
-			// 		continue;
-			// 	}
+			const studentEvents = seedData.studentEvents;
+			for (const studentEventData of studentEvents) {
+				const event = savedEvents.find(
+					(e) => e.name === studentEventData.eventName && e.date === studentEventData.date && e.hour === studentEventData.hour && e.location === studentEventData.location,
+				);
+				if (!event) {
+					console.error(`Event not found for data: ${JSON.stringify(studentEventData)}`);
+					continue;
+				}
 
-			// 	const student = savedStudents.find((s) => s.profile.code === studentEventData.studentProfileCode);
-			// 	if (!student) {
-			// 		console.error(`Student not found for profile code: ${studentEventData.studentProfileCode}`);
-			// 		continue;
-			// 	}
+				const student = savedStudents.find((s) => s.profile.code === studentEventData.studentProfileCode);
+				if (!student) {
+					console.error(`Student not found for profile code: ${studentEventData.studentProfileCode}`);
+					continue;
+				}
 
-			// 	const studentEventEntity = this.studentEventRepository.create({
-			// 		assistance: studentEventData.assistance,
-			// 		student,
-			// 		event,
-			// 	});
-			// 	await this.studentEventRepository.save(studentEventEntity);
-			// 	console.log(`Student Event saved for student code: ${studentEventData.studentProfileCode}`);
-			// }
+				const studentEventEntity = this.studentEventRepository.create({
+					assistance: studentEventData.assistance,
+					student,
+					event,
+				});
+				await this.studentEventRepository.save(studentEventEntity);
+				console.log(`Student Event saved for student code: ${studentEventData.studentProfileCode}`);
+			}
 
 			// agregar mas en caso necesitar
 		} catch (error) {
