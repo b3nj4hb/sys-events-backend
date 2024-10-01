@@ -11,7 +11,6 @@ import { EventUpdateDto } from '../dto/event-update.dto';
 import { eventsByProfileCode } from 'src/examples/events-by-profile-code';
 import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 
-@ApiTags('Event')
 @Controller('event')
 export class EventController {
 	constructor(private readonly eventService: EventService) {}
@@ -102,7 +101,7 @@ export class EventController {
 	}
 
 	@UseGuards(JwtAuthGuard)
-	@Get('types')
+	@Get('types/list')
 	@ApiTags('Event Type')
 	@ApiOperation({ summary: 'Get all event types' })
 	@ApiResponse({
