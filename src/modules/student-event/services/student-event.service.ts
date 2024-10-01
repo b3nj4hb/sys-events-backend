@@ -100,7 +100,7 @@ export class StudentEventService {
 				event: { id: eventId },
 				student: { id: profile.student.id },
 			},
-			relations: ['event', 'student'],
+			relations: ['event', 'student', 'justifications'],
 		});
 
 		if (!studentEvent) {
@@ -111,6 +111,15 @@ export class StudentEventService {
 		studentEvent.assistance = assistance;
 		studentEvent.student = profile.student;
 		studentEvent.event = event;
+
+		// Si la asistencia es true, actualizar justificaciones pendientes a aprobadas
+		if (assistance) {
+			const pendingJustification = studentEvent.justifications.find((justification) => justification.status === 'pending');
+			if (pendingJustification) {
+				pendingJustification.status = 'approved';
+				await this.justificationRepository.save(pendingJustification);
+			}
+		}
 
 		// Guardar los cambios en la base de datos
 		return this.studentEventRepository.save(studentEvent);
