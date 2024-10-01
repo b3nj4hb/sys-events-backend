@@ -35,6 +35,8 @@ export class EventService {
 			.createQueryBuilder('event')
 			.leftJoinAndSelect('event.eventType', 'eventType') // Join con la tabla eventType
 			.leftJoinAndSelect('event.studentEvent', 'studentEvent')
+			.leftJoinAndSelect('event.carrier', 'carrier') // Join con la tabla carrier
+			.leftJoinAndSelect('carrier.faculty', 'faculty') // Join con la tabla faculty a través de carrier
 			.getMany();
 
 		return events;
