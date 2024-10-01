@@ -26,6 +26,7 @@ export class EventService {
 		const events = await this.eventRepository
 			.createQueryBuilder('event')
 			.leftJoinAndSelect('event.eventType', 'eventType') // Join con la tabla eventType
+			.leftJoinAndSelect('event.studentEvent', 'studentEvent')
 			.getMany();
 
 		return events;
