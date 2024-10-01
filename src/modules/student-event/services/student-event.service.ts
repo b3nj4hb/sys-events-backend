@@ -71,21 +71,7 @@ export class StudentEventService {
 
 	// Método para actualizar un student - evento existente
 	async updateStudentEvent(updateStudentEventDto: StudentEventUpdateDto): Promise<StudentEventEntity> {
-		const { id, assistance, studentCode, eventId } = updateStudentEventDto;
-
-		// Buscar el StudentEvent por su ID
-		const studentEvent = await this.studentEventRepository.findOne({ where: { id } });
-
-		if (!studentEvent) {
-			throw new NotFoundException(`StudentEvent with ID "${id}" not found`);
-		}
-
-		// Buscar el evento por su ID
-		const event = await this.eventRepository.findOne({ where: { id: eventId } });
-
-		if (!event) {
-			throw new NotFoundException(`Event with ID "${eventId}" not found`);
-		}
+		const { assistance, studentCode, eventId } = updateStudentEventDto;
 
 		// Buscar el perfil del estudiante por su código
 		const profile = await this.profileRepository.findOne({
@@ -101,10 +87,30 @@ export class StudentEventService {
 			throw new NotFoundException(`Student associated with profile code "${studentCode}" not found`);
 		}
 
+		// Buscar el evento por su ID
+		const event = await this.eventRepository.findOne({ where: { id: eventId } });
+
+		if (!event) {
+			throw new NotFoundException(`Event with ID "${eventId}" not found`);
+		}
+
+		// Buscar el StudentEvent por el eventId y el código del perfil
+		const studentEvent = await this.studentEventRepository.findOne({
+			where: {
+				event: { id: eventId },
+				student: { id: profile.student.id },
+			},
+			relations: ['event', 'student'],
+		});
+
+		if (!studentEvent) {
+			throw new NotFoundException(`StudentEvent with event ID "${eventId}" and student code "${studentCode}" not found`);
+		}
+
 		// Actualizar los campos del StudentEvent
 		studentEvent.assistance = assistance;
-		if (profile.student) studentEvent.student = profile.student;
-		if (event) studentEvent.event = event;
+		studentEvent.student = profile.student;
+		studentEvent.event = event;
 
 		// Guardar los cambios en la base de datos
 		return this.studentEventRepository.save(studentEvent);

@@ -25,7 +25,7 @@ export class StudentEventController {
 
 	@UseGuards(JwtAuthGuard)
 	@ApiTags('Student Event')
-	@Put(':id')
+	@Put('')
 	@ApiParam({
 		name: 'id',
 		type: 'string',
@@ -33,9 +33,9 @@ export class StudentEventController {
 		example: '7b4ffd79-0c1d-4670-8e47-b21168e3187b',
 	})
 	@ApiOperation({ summary: "Update a student's attendance record" })
-	async update(@Param('id') id: string, @Body() updateStudentEventDto: StudentEventUpdateDto): Promise<StudentEventEntity> {
+	async update(@Body() updateStudentEventDto: StudentEventUpdateDto): Promise<StudentEventEntity> {
 		// console.log('Updating StudentEvent with DTO:', updateStudentEventDto);
-		return this.studentEventService.updateStudentEvent({ ...updateStudentEventDto, id });
+		return this.studentEventService.updateStudentEvent({ ...updateStudentEventDto });
 	}
 
 	@UseGuards(JwtAuthGuard)
