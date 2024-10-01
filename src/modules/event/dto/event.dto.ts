@@ -52,6 +52,14 @@ export class EventDto {
 	@IsUUID()
 	eventTypeId: string; // ID del tipo de evento
 
+	@ApiProperty({
+		description: 'ID of the carrier',
+		example: 'd2e33e06-f1d0-4a58-8cd7-36284179a60d',
+	})
+	@IsNotEmpty()
+	@IsUUID()
+	carrierId: string; // ID del carrier
+
 	@IsOptional()
 	@IsString()
 	fileId?: string; // Opcional para ambos, solo se usa si hay un archivo

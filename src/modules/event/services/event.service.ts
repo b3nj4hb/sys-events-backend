@@ -8,6 +8,8 @@ import { R2Client } from 'src/config/cloudflare-r2.config';
 import { EventDto } from '../dto/event.dto';
 import { EventUpdateDto } from '../dto/event-update.dto';
 import { StudentEntity } from 'src/modules/student/entities/student.entity';
+import { StudentEventEntity } from 'src/modules/student-event/entities/student-event.entity';
+import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
 
 @Injectable()
 export class EventService {
@@ -20,6 +22,12 @@ export class EventService {
 
 		@InjectRepository(StudentEntity)
 		private readonly studentRepository: Repository<StudentEntity>,
+
+		@InjectRepository(CarrierEntity)
+		private readonly carrierRepository: Repository<CarrierEntity>,
+
+		@InjectRepository(StudentEventEntity)
+		private readonly studentEventRepository: Repository<StudentEventEntity>,
 	) {}
 
 	async getEvents(): Promise<any> {
@@ -59,20 +67,24 @@ export class EventService {
 	}
 
 	async createEvent(createEventDto: EventDto): Promise<EventEntity> {
-		const { name, date, hour, location, period, eventTypeId, file } = createEventDto;
+		const { name, date, hour, location, period, eventTypeId, carrierId, file } = createEventDto;
 
 		// Buscar el tipo de evento por su ID
 		const eventType = await this.eventTypeRepository.findOne({
 			where: { id: eventTypeId },
 		});
 
-		//const eventType = await this.eventTypeRepository.findOne({ where: { name: eventTypeName } });
-
-		/*if (!eventType) {
-      throw new NotFoundException('Event type not found');
-    }*/
 		if (!eventType) {
-			throw new NotFoundException(`Event type with name "${eventTypeId}" not found`);
+			throw new NotFoundException(`Event type with ID "${eventTypeId}" not found`);
+		}
+
+		// Buscar el carrier por su ID
+		const carrier = await this.carrierRepository.findOne({
+			where: { id: carrierId },
+		});
+
+		if (!carrier) {
+			throw new NotFoundException(`Carrier with ID "${carrierId}" not found`);
 		}
 
 		// Inicializar fileId y fileUrl
@@ -93,6 +105,7 @@ export class EventService {
 
 			await R2Client.send(command); // Ejecutar la subida del archivo
 		}
+
 		// Crear un nuevo evento con los datos proporcionados
 		const event = this.eventRepository.create({
 			name,
@@ -101,12 +114,32 @@ export class EventService {
 			location,
 			period,
 			eventType, // Asocia el tipo de evento encontrado
+			carrier, // Asocia el carrier encontrado
 			fileId, // ID del archivo en el bucket
 			fileUrl, // URL para acceder al archivo
 		});
 
 		// Guardar el evento en la base de datos
-		return this.eventRepository.save(event);
+		const savedEvent = await this.eventRepository.save(event);
+
+		// Obtener todos los estudiantes del carrier
+		const students = await this.studentRepository.find({
+			where: { carrier: { id: carrierId } },
+		});
+
+		// Crear registros en la tabla studentEvent para cada estudiante
+		const studentEvents = students.map((student) => {
+			return this.studentEventRepository.create({
+				assistance: false,
+				student,
+				event: savedEvent,
+			});
+		});
+
+		// Guardar los registros en la base de datos
+		await this.studentEventRepository.save(studentEvents);
+
+		return savedEvent;
 	}
 
 	// Método para actualizar un evento existente
