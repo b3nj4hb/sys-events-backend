@@ -107,109 +107,109 @@ export class SeedService implements OnModuleInit {
 				console.log(`Carrier saved: ${carrier.name}`);
 			}
 
-			// Inserta eventos
-			const events = seedData.events;
-			const savedEvents = [];
-			for (const event of events) {
-				const eventType = savedEventTypes.find((et) => et.name === event.eventTypeName);
-				if (!eventType) {
-					console.error(`Event Type not found for event: ${event.eventTypeName}`);
-					continue;
-				}
+			// // Inserta eventos
+			// const events = seedData.events;
+			// const savedEvents = [];
+			// for (const event of events) {
+			// 	const eventType = savedEventTypes.find((et) => et.name === event.eventTypeName);
+			// 	if (!eventType) {
+			// 		console.error(`Event Type not found for event: ${event.eventTypeName}`);
+			// 		continue;
+			// 	}
 
-				const carrier = savedCarriers.find((c) => c.name === event.carrierName);
-				if (!carrier) {
-					console.error(`Carrier not found for event: ${event.carrierName}`);
-					continue;
-				}
+			// 	const carrier = savedCarriers.find((c) => c.name === event.carrierName);
+			// 	if (!carrier) {
+			// 		console.error(`Carrier not found for event: ${event.carrierName}`);
+			// 		continue;
+			// 	}
 
-				const eventEntity = this.eventRepository.create({
-					...event,
-					eventType,
-					carrier,
-				});
-				const savedEvent = await this.eventRepository.save(eventEntity);
-				savedEvents.push(savedEvent);
-				console.log(`Event saved: ${event.name}`);
-			}
+			// 	const eventEntity = this.eventRepository.create({
+			// 		...event,
+			// 		eventType,
+			// 		carrier,
+			// 	});
+			// 	const savedEvent = await this.eventRepository.save(eventEntity);
+			// 	// savedEvents.push(savedEvent);
+			// 	console.log(`Event saved: ${event.name}`);
+			// }
 
-			// Inserta profiles
-			const profiles = seedData.profiles;
-			const savedProfiles = [];
-			for (const profile of profiles) {
-				const role = savedRoles.find((r) => r.name === profile.roleName);
-				if (!role) {
-					console.error(`Role not found for profile: ${profile.roleName}`);
-					continue;
-				}
+			// // Inserta profiles
+			// const profiles = seedData.profiles;
+			// const savedProfiles = [];
+			// for (const profile of profiles) {
+			// 	const role = savedRoles.find((r) => r.name === profile.roleName);
+			// 	if (!role) {
+			// 		console.error(`Role not found for profile: ${profile.roleName}`);
+			// 		continue;
+			// 	}
 
-				const profileEntity = this.profileRepository.create({
-					...profile,
-					role,
-				});
-				const savedProfile = await this.profileRepository.save(profileEntity);
-				savedProfiles.push(savedProfile);
-				console.log(`Profile saved: ${profile.fullName}`);
-			}
+			// 	const profileEntity = this.profileRepository.create({
+			// 		...profile,
+			// 		role,
+			// 	});
+			// 	const savedProfile = await this.profileRepository.save(profileEntity);
+			// 	// savedProfiles.push(savedProfile);
+			// 	console.log(`Profile saved: ${profile.fullName}`);
+			// }
 
-			// Inserta estudiantes
-			const students = seedData.students;
-			const savedStudents = [];
-			for (const studentData of students) {
-				// Filtra perfiles con rol "Estudiante"
-				const profile = savedProfiles.find((p) => p.code === studentData.profileCode && p.role.name === 'Estudiante');
-				if (!profile) {
-					console.error(`Profile not found for code: ${studentData.profileCode}`);
-					continue;
-				}
+			// // Inserta estudiantes
+			// const students = seedData.students;
+			// const savedStudents = [];
+			// for (const studentData of students) {
+			// 	// Filtra perfiles con rol "Estudiante"
+			// 	const profile = savedProfiles.find((p) => p.code === studentData.profileCode && p.role.name === 'Estudiante');
+			// 	if (!profile) {
+			// 		console.error(`Profile not found for code: ${studentData.profileCode}`);
+			// 		continue;
+			// 	}
 
-				const carrier = savedCarriers.find((c) => c.name === studentData.carrierName);
-				if (!carrier) {
-					console.error(`Carrier not found for name: ${studentData.carrierName}`);
-					continue;
-				}
+			// 	const carrier = savedCarriers.find((c) => c.name === studentData.carrierName);
+			// 	if (!carrier) {
+			// 		console.error(`Carrier not found for name: ${studentData.carrierName}`);
+			// 		continue;
+			// 	}
 
-				const cycle = savedCycles.find((c) => c.name === studentData.cycleName);
-				if (!cycle) {
-					console.error(`Cycle not found for name: ${studentData.cycleName}`);
-					continue;
-				}
+			// 	const cycle = savedCycles.find((c) => c.name === studentData.cycleName);
+			// 	if (!cycle) {
+			// 		console.error(`Cycle not found for name: ${studentData.cycleName}`);
+			// 		continue;
+			// 	}
 
-				const studentEntity = this.studentRepository.create({
-					profile,
-					carrier,
-					cycle,
-				});
-				const savedStudent = await this.studentRepository.save(studentEntity);
-				savedStudents.push(savedStudent);
-				console.log(`Student saved with profile code: ${studentData.profileCode}`);
-			}
+			// 	const studentEntity = this.studentRepository.create({
+			// 		profile,
+			// 		carrier,
+			// 		cycle,
+			// 	});
+			// 	const savedStudent = await this.studentRepository.save(studentEntity);
+			// 	// savedStudents.push(savedStudent);
+			// 	console.log(`Student saved with profile code: ${studentData.profileCode}`);
+			// }
 
-			// Inserta student events
-			const studentEvents = seedData.studentEvents;
-			for (const studentEventData of studentEvents) {
-				const event = savedEvents.find(
-					(e) => e.name === studentEventData.eventName && e.date === studentEventData.date && e.hour === studentEventData.hour && e.location === studentEventData.location,
-				);
-				if (!event) {
-					console.error(`Event not found for data: ${JSON.stringify(studentEventData)}`);
-					continue;
-				}
+			// // Inserta student events
+			// const studentEvents = seedData.studentEvents;
+			// for (const studentEventData of studentEvents) {
+			// 	const event = savedEvents.find(
+			// 		(e) => e.name === studentEventData.eventName && e.date === studentEventData.date && e.hour === studentEventData.hour && e.location === studentEventData.location,
+			// 	);
+			// 	if (!event) {
+			// 		console.error(`Event not found for data: ${JSON.stringify(studentEventData)}`);
+			// 		continue;
+			// 	}
 
-				const student = savedStudents.find((s) => s.profile.code === studentEventData.studentProfileCode);
-				if (!student) {
-					console.error(`Student not found for profile code: ${studentEventData.studentProfileCode}`);
-					continue;
-				}
+			// 	const student = savedStudents.find((s) => s.profile.code === studentEventData.studentProfileCode);
+			// 	if (!student) {
+			// 		console.error(`Student not found for profile code: ${studentEventData.studentProfileCode}`);
+			// 		continue;
+			// 	}
 
-				const studentEventEntity = this.studentEventRepository.create({
-					assistance: studentEventData.assistance,
-					student,
-					event,
-				});
-				await this.studentEventRepository.save(studentEventEntity);
-				console.log(`Student Event saved for student code: ${studentEventData.studentProfileCode}`);
-			}
+			// 	const studentEventEntity = this.studentEventRepository.create({
+			// 		assistance: studentEventData.assistance,
+			// 		student,
+			// 		event,
+			// 	});
+			// 	// await this.studentEventRepository.save(studentEventEntity);
+			// 	console.log(`Student Event saved for student code: ${studentEventData.studentProfileCode}`);
+			// }
 
 			// agregar mas en caso necesitar
 		} catch (error) {
