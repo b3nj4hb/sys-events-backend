@@ -19,10 +19,6 @@ export class ProfileEntity extends BaseEntity implements Profile {
 	email: string;
 	@Column()
 	password: string;
-	@Column({ type: 'enum', enum: ['unique', 'one', 'two', 'three'], default: 'unique' })
-	group: 'unique' | 'one' | 'two' | 'three';
-	@Column({ type: 'enum', enum: ['lima', 'tarapoto', 'juliaca'], default: 'lima' })
-	campus: 'lima' | 'tarapoto' | 'juliaca';
 
 	@Column({
 		type: 'enum',
