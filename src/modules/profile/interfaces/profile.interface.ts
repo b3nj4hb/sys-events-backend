@@ -5,4 +5,10 @@ export interface Profile {
 	phone: string;
 	email: string;
 	password: string;
+	role: Role;
+}
+export enum Role {
+	student = 'student',
+	admin = 'admin',
+	secretary = 'tutor',
 }

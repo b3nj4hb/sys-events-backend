@@ -49,7 +49,6 @@ export class EventService {
 			.leftJoinAndSelect('event.studentEvent', 'studentEvent') // Join con la tabla studentEvent
 			.leftJoinAndSelect('studentEvent.student', 'student') // Join con la tabla student a través de studentEvent
 			.leftJoinAndSelect('student.profile', 'profile') // Join con la tabla profile a través de student
-			.leftJoinAndSelect('profile.role', 'role') // Join con la tabla role a través de profile
 			.leftJoinAndSelect('student.carrier', 'carrier') // Join con la tabla carrier a través de student
 			.leftJoinAndSelect('carrier.faculty', 'faculty') // Join con la tabla faculty a través de carrier
 			.leftJoinAndSelect('student.cycle', 'cycle') // Join con la tabla cycle a través de student

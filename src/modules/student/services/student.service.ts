@@ -14,7 +14,6 @@ export class StudentService {
 		return this.studentRepository
 			.createQueryBuilder('student')
 			.leftJoinAndSelect('student.profile', 'profile')
-			.leftJoinAndSelect('profile.role', 'role') // Join con la tabla role a través de profile
 			.leftJoinAndSelect('student.carrier', 'carrier')
 			.leftJoinAndSelect('carrier.faculty', 'faculty')
 			.leftJoinAndSelect('student.studentEvent', 'studentEvent')
@@ -30,9 +29,7 @@ export class StudentService {
 				'profile.code', // Codigo del perfil
 				'profile.phone', // Numero de telefono
 				'profile.email', // Email del perfil
-
-				// Datos del rol asociado al perfil
-				'role.name', // Nombre del rol
+				'profile.role', // Rol del perfil
 
 				// Datos de la carrera y facultad asociada
 				'carrier.name', // Nombre de la carrera
