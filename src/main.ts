@@ -7,7 +7,10 @@ import { ValidationPipe } from '@nestjs/common';
 import { join } from 'path';
 import * as express from 'express';
 import { hostname } from 'os';
+import { createUploadsDir } from './config/create-uploads-dir';
 // import { testConnection } from './config/connection.test';
+
+createUploadsDir();
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);

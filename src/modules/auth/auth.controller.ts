@@ -2,6 +2,7 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './auth.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import * as bcrypt from 'bcrypt';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -16,5 +17,12 @@ export class AuthController {
 			return { message: 'Credenciales incorrectas' };
 		}
 		return this.authService.login(validatedUser);
+	}
+
+	@Post('hash-password')
+	@ApiOperation({ summary: 'Hash a password' })
+	async hashPassword(@Body('password') password: string): Promise<{ hashedPassword: string }> {
+		const hashedPassword = await this.authService.hashPassword(password);
+		return { hashedPassword };
 	}
 }

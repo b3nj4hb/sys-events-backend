@@ -8,7 +8,7 @@ import { Status } from 'src/constants/states';
 export class ProfileEntity extends BaseEntity implements Profile {
 	@Column()
 	fullName: string;
-	@Column()
+	@Column({ nullable: true })
 	avatarUrl: string;
 	@Column({ unique: true })
 	code: string;
