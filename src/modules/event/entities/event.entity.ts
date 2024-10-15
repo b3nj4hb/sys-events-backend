@@ -4,6 +4,7 @@ import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { EventTypeEntity } from './event-type.entity';
 import { StudentEventEntity } from 'src/modules/student-event/entities/student-event.entity';
 import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
+import { Status } from 'src/constants/states';
 
 @Entity({ name: 'event' })
 export class EventEntity extends BaseEntity implements Event {
@@ -21,6 +22,8 @@ export class EventEntity extends BaseEntity implements Event {
 	fileId: string;
 	@Column({ nullable: true })
 	fileUrl: string;
+	@Column({ type: 'enum', enum: Status, default: Status.ACTIVE })
+	status: Status;
 
 	@ManyToOne(() => EventTypeEntity, (eventType) => eventType.event)
 	eventType: EventTypeEntity;
