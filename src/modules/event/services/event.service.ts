@@ -10,6 +10,7 @@ import { EventUpdateDto } from '../dto/event-update.dto';
 import { StudentEntity } from 'src/modules/student/entities/student.entity';
 import { StudentEventEntity } from 'src/modules/student-event/entities/student-event.entity';
 import { CarrierEntity } from 'src/modules/carrier/entities/carrier.entity';
+import { Status } from 'src/constants/states';
 
 @Injectable()
 export class EventService {
@@ -233,6 +234,28 @@ export class EventService {
 			// Si no hay archivo asociado, solo actualiza el registro
 			console.log('No file to delete for event ID:', eventId);
 		}
+	}
+
+	async logicalEventDelete(eventId: string): Promise<void> {
+		// Buscar el evento por ID
+		const event = await this.eventRepository.findOne({
+			where: { id: eventId },
+		});
+
+		if (!event) {
+			throw new NotFoundException(`Event with ID "${eventId}" not found`);
+		}
+
+		// Eliminar el archivo del bucket si existe
+		if (event.fileId) {
+			await this.deleteFile(event.id);
+		}
+
+		// Actualizar el estado del evento a inactivo
+		event.status = Status.INACTIVE;
+
+		// Guardar los cambios en la base de datos
+		await this.eventRepository.save(event);
 	}
 
 	async deleteEvent(eventId: string): Promise<void> {

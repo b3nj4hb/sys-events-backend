@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Body, UseInterceptors, UploadedFile, Delete, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, UseInterceptors, UploadedFile, Delete, Param, UseGuards, Patch } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { EventService } from '../services/event.service';
 import { EventEntity } from '../entities/event.entity';
@@ -84,6 +84,20 @@ export class EventController {
 	@ApiOperation({ summary: 'Delete a file associated with an event' })
 	async deleteFile(@Param('id') eventId: string): Promise<void> {
 		return this.eventService.deleteFile(eventId);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Patch('logical-delete/:id')
+	@ApiTags('Event')
+	@ApiParam({
+		name: 'id',
+		type: 'string',
+		description: 'The ID of the event to delete',
+		example: '7b4ffd79-0c1d-4670-8e47-b21168e3187b',
+	})
+	@ApiOperation({ summary: 'Delete an event' })
+	async logicalEventDelete(@Param('id') eventId: string): Promise<void> {
+		return this.eventService.logicalEventDelete(eventId);
 	}
 
 	@UseGuards(JwtAuthGuard)
