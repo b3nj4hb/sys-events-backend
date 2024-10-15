@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import * as iconv from 'iconv-lite';
 import { parse } from '@fast-csv/parse';
+import { Status } from 'src/constants/states';
 
 @Injectable()
 export class StudentService {
@@ -58,6 +59,7 @@ export class StudentService {
 				'eventType.name', // Tipo de evento
 				'event.fileUrl',
 			])
+			.where('event.status = :status', { status: Status.ACTIVE }) // Filtrar solo eventos activos
 			.getMany();
 	}
 
