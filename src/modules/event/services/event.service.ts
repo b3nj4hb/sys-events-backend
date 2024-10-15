@@ -38,6 +38,7 @@ export class EventService {
 			.leftJoinAndSelect('event.studentEvent', 'studentEvent')
 			.leftJoinAndSelect('event.carrier', 'carrier') // Join con la tabla carrier
 			.leftJoinAndSelect('carrier.faculty', 'faculty') // Join con la tabla faculty a través de carrier
+			.where('event.status = :status', { status: Status.ACTIVE }) // Filtrar solo eventos activos
 			.getMany();
 
 		return events;
