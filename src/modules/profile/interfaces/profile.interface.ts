@@ -10,5 +10,5 @@ export interface Profile {
 export enum Role {
 	student = 'student',
 	admin = 'admin',
-	secretary = 'tutor',
+	tutor = 'tutor',
 }
